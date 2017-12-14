@@ -7,18 +7,18 @@ import javax.persistence.Persistence;
 
 public class Controller {
 
-	public void cadastrarPessoa(String senha , String nome) {
-		
-		Usuario usuario  = new Usuario();
-                usuario.setNomeUsuario(nome);
-                usuario.setSenha(senha);
-	
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		em.persist(usuario);
-		em.getTransaction().commit();
-		em.close();
-	}
-	
+    public void cadastrarPessoa(String senha, String nome) {
+
+        Usuario usuario  = new Usuario();
+        usuario.setNomeUsuario(nome);
+        usuario.setSenha(senha);
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(usuario);
+        em.getTransaction().commit();
+        em.close();
+    }
+
 }
