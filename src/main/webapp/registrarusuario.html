@@ -22,7 +22,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">QPA | Home</a>
+				<a class="navbar-brand" href="#">QPA | Registrar</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -37,5 +37,13 @@
 			</div><!-- /.navbar-collapse -->
 		</div>
 	</nav>
+	<form action="Servlet" method="POST" role="form">
+		<legend>Registrar Usuário</legend>
+		<div class="form-group">
+			<input type="email" class="form-control" name="email" id="" placeholder="Email">
+			<input type="password" name="senha" class="form-control" placeholder="Senha">
+		</div>
+		<button type="submit" class="btn btn-primary">Registrar</button>
+	</form>
 </body>
 </html>

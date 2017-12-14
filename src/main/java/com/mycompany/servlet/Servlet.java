@@ -5,22 +5,51 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/registraraluno")
 public class Servlet extends HttpServlet {
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try{
+            String htmlResponse = "<html>";
+            if(createUsuario(request, response)){
+                htmlResponse += "<h2>Aluno cadastrado com sucesso!</h2>";
+                htmlResponse += "</html>";
+            }else{
+                htmlResponse += "<h2>Aluno cadastrado com sucesso!</h2>";
+                htmlResponse += "</html>";
+            }
+            out.println(htmlResponse);
+        }finally{
+            out.close();
+        }
+    }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        PrintWriter pw = res.getWriter();
-        res.setContentType("text/html");
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        processRequest(request, response);
+    }
 
-        String n1 = req.getParameter("n1");
-        String n2 = req.getParameter("n2");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        processRequest(request, response);
+    }
 
-        Controller controller = new Controller();
-        controller.cadastrarPessoa(n1, n2);
+    protected boolean createUsuario(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        //System.out.println("Entrou");
+        String email = req.getParameter("email");
+        String senha = req.getParameter("senha");
 
+        return Controller.cadastrarUsuario(email, senha);
     }
 
 
