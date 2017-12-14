@@ -22,8 +22,28 @@ public class Controller {
 		em.close();
 	}
 
+	public Usuario selectUser(String usuario){
+		Usuario usuario  = new Usuario();
 
-        public void salvarDefinicao(String objetivo , String objetoEstudo, String perspectiva, String foco, String contexto) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
+		EntityManager em = emf.createEntityManager();
+
+		Query query = em
+        .createQuery("select u from Usuario as u "+
+          "where u.userName = :usuario");
+	    query.setParameter("usuario", usuario);
+
+	    List<Usuario> lista = query.getResultList();
+
+		em.close();
+
+		return lista.get(0);
+
+	}
+
+
+
+    public void salvarDefinicao(String objetivo , String objetoEstudo, String perspectiva, String foco, String contexto) {
 
 		Definicao d  = new Definicao();
                 d.setConcluido(false);
