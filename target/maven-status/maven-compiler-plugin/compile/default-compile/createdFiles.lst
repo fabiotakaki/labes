@@ -1,0 +1,8 @@
+com/mycompany/model/Definicao.class
+com/mycompany/model/Usuario.class
+com/mycompany/servlet/RegistrarUsuario.class
+com/mycompany/configs/HibernateUtil.class
+com/mycompany/controller/Controller.class
+com/mycompany/persistences/UsuarioPersistence.class
+com/mycompany/controller/ControllerUsuario.class
+com/mycompany/model/Experimento.class
