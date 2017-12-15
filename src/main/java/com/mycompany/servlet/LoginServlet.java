@@ -16,15 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * @author sidious
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
 
+    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,12 +39,12 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-           String htmlResponse = "<html>";
-           if(request.getParameter("email") == null || request.getParameter("email").equals("") || request.getParameter("senha") == null || request.getParameter("senha").equals("")){
-               htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
-               htmlResponse += "</html>";
-           }
-           if(login(request, response)){
+            String htmlResponse = "<html>";
+            if (request.getParameter("email") == null || request.getParameter("email").equals("") || request.getParameter("senha") == null || request.getParameter("senha").equals("")) {
+                htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
+                htmlResponse += "</html>";
+            }
+            if (login(request, response)) {
                 htmlResponse += "<h2>Usuário logado com sucesso!</h2>";
                 htmlResponse += "</html>";
             } else {
@@ -87,18 +86,17 @@ public class LoginServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    public boolean login(HttpServletRequest request, HttpServletResponse response){
+    public boolean login(HttpServletRequest request, HttpServletResponse response) {
         boolean isLogged = false;
-        try{
+        try {
             String email, senha;
             email = request.getParameter("email");
             senha = request.getParameter("senha");
 
             isLogged = ControllerUsuario.login(email, senha);
-            System.out.println(isLogged);
-            LOGGER.log(Level.SEVERE, String.valueOf(isLogged));
-        }catch(Exception e){
-            LOGGER.log(Level.SEVERE, "ERRO: [" + e.getMessage() + "]", e);
+            LOGGER.log(Level.INFO, String.valueOf(isLogged));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
         }
         return isLogged;
     }

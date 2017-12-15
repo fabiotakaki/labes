@@ -20,7 +20,7 @@ public class ControllerUsuario {
         return novoUsuario.saveOnDatabase();
     }
 
-    public static boolean login(String email, String senha){
+    public static boolean login(String email, String senha) {
         usuario = Usuario.login(email, senha);
         return usuario != null;
     }

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="Usuario")
+@Table(name = "Usuario")
 public class Usuario implements Serializable {
 
     @Id
@@ -36,13 +36,12 @@ public class Usuario implements Serializable {
     //@Column(name="lastAccess", unique=true)
     //@Temporal(TemporalType.DATE)
     //private Date ultimoAcesso;
-
     public Usuario(String nomeUsuario, String senha) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
     }
 
-    public Usuario(){
+    public Usuario() {
 
     }
 
@@ -66,7 +65,7 @@ public class Usuario implements Serializable {
         return UsuarioPersistence.save(this);
     }
 
-    public static Usuario login(String email, String senha){
+    public static Usuario login(String email, String senha) {
         return UsuarioPersistence.login(email, senha);
     }
 
