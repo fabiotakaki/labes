@@ -19,10 +19,10 @@ public class ControllerUsuario {
         Usuario novoUsuario = new Usuario(email, senha);
         return novoUsuario.saveOnDatabase();
     }
-    
+
     public static boolean login(String email, String senha){
         usuario = Usuario.login(email, senha);
-        return usuario == null;
+        return usuario != null;
     }
 
 }

@@ -52,12 +52,14 @@ public class UsuarioPersistence {
         q.setParameter("senha", senha);
         List queryResult = q.list();
         System.out.println(queryResult);
-        LOGGER.log(Level.INFO, queryResult);
+        LOGGER.log(Level.INFO, String.valueOf(queryResult));
         session.close();
 
         System.out.println(queryResult.size());
         if(queryResult.size()>1 || queryResult.isEmpty())
             return null;
+        //Usuario user = (Usuario)queryResult.get(0);
+        //LOGGER.log(Level.INFO, "{0}|{1}", new Object[]{user.getNomeUsuario(), user.getSenha()});
         return (Usuario)queryResult.get(0);
     }
 }

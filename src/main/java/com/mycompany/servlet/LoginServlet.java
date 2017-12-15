@@ -8,11 +8,14 @@ package com.mycompany.servlet;
 import com.mycompany.controller.ControllerUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -81,18 +86,21 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
+
     public boolean login(HttpServletRequest request, HttpServletResponse response){
+        boolean isLogged = false;
         try{
             String email, senha;
             email = request.getParameter("email");
             senha = request.getParameter("senha");
-            
-            return ControllerUsuario.login(email, senha);
+
+            isLogged = ControllerUsuario.login(email, senha);
+            System.out.println(isLogged);
+            LOGGER.log(Level.SEVERE, String.valueOf(isLogged));
         }catch(Exception e){
-            System.out.println("ERRO: [" + e.getMessage() + "]");
+            LOGGER.log(Level.SEVERE, "ERRO: [" + e.getMessage() + "]", e);
         }
-        return false;
+        return isLogged;
     }
 
     /**

@@ -2,7 +2,7 @@ package com.mycompany.model;
 
 /**
  *
- * @author nicol
+ * @author nicol, sidious
  */
 //import com.sun.istack.internal.NotNull;
 import com.mycompany.persistences.UsuarioPersistence;
@@ -36,13 +36,14 @@ public class Usuario implements Serializable {
     //@Column(name="lastAccess", unique=true)
     //@Temporal(TemporalType.DATE)
     //private Date ultimoAcesso;
+
     public Usuario(String nomeUsuario, String senha) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
     }
-    
+
     public Usuario(){
-        
+
     }
 
     public String getNomeUsuario() {
@@ -61,19 +62,10 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    /*
-    public Date getUltimoAcesso() {
-          return ultimoAcesso;
-    }
-
-    public void setUltimoAcesso(Date ultimoAcesso) {
-          this.ultimoAcesso = ultimoAcesso;
-    }
-     */
     public boolean saveOnDatabase() {
         return UsuarioPersistence.save(this);
     }
-    
+
     public static Usuario login(String email, String senha){
         return UsuarioPersistence.login(email, senha);
     }
