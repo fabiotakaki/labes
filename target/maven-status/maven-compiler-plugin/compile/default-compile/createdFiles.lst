@@ -1,6 +1,7 @@
 com/mycompany/model/Definicao.class
 com/mycompany/model/Usuario.class
 com/mycompany/servlet/RegistrarUsuario.class
+com/mycompany/servlet/LoginServlet.class
 com/mycompany/configs/HibernateUtil.class
 com/mycompany/controller/Controller.class
 com/mycompany/persistences/UsuarioPersistence.class
