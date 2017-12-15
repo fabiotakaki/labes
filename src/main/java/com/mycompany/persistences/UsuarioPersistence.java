@@ -7,6 +7,10 @@ package com.mycompany.persistences;
 
 import com.mycompany.configs.HibernateUtil;
 import com.mycompany.model.Usuario;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,6 +20,8 @@ import org.hibernate.Transaction;
  * @author sidious
  */
 public class UsuarioPersistence {
+
+    private static final Logger LOGGER = Logger.getLogger(UsuarioPersistence.class.getName());
 
     public static boolean save(Usuario usuario) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -28,7 +34,7 @@ public class UsuarioPersistence {
             t.commit();
             commited = true;
         } catch (Exception e) {
-            System.out.println("ERRO: " + e.getMessage() + " --- ");
+            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
             if (t != null && !t.wasCommitted()) {
                 t.rollback();
             }
@@ -36,5 +42,24 @@ public class UsuarioPersistence {
             session.close();
         }
         return commited;
+    }
+
+    public static Usuario login(String email, String senha) {
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+
+        Query q = session.createQuery("from Usuario where userName = :email and senha = :senha");
+        q.setParameter("email", email);
+        q.setParameter("senha", senha);
+        List queryResult = q.list();
+        //System.out.println(queryResult);
+        LOGGER.log(Level.INFO, String.valueOf(queryResult));
+        session.close();
+
+        //System.out.println(queryResult.size());
+        if (queryResult.size() > 1 || queryResult.isEmpty()) {
+            return null;
+        }
+        return (Usuario) queryResult.get(0);
     }
 }

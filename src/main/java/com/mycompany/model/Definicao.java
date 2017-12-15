@@ -12,7 +12,6 @@ import javax.persistence.*;
  *
  * @author fabio
  */
-
 @SuppressWarnings("Serial")
 @Entity
 public class Definicao implements Serializable {

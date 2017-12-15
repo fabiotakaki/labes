@@ -2,23 +2,22 @@ package com.mycompany.model;
 
 /**
  *
- * @author nicol
+ * @author nicol, sidious
  */
 //import com.sun.istack.internal.NotNull;
 import com.mycompany.persistences.UsuarioPersistence;
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "Usuario")
 public class Usuario implements Serializable {
 
     @Id
@@ -31,7 +30,7 @@ public class Usuario implements Serializable {
     @Column(name = "userName", nullable = false, unique = true)
     private String nomeUsuario;
 
-    @Column(name = "password", nullable = false, unique = false)
+    @Column(name = "senha", nullable = false, unique = false)
     private String senha;
 
     //@Column(name="lastAccess", unique=true)
@@ -40,6 +39,10 @@ public class Usuario implements Serializable {
     public Usuario(String nomeUsuario, String senha) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
+    }
+
+    public Usuario() {
+
     }
 
     public String getNomeUsuario() {
@@ -58,17 +61,12 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    /*
-    public Date getUltimoAcesso() {
-          return ultimoAcesso;
-    }
-
-    public void setUltimoAcesso(Date ultimoAcesso) {
-          this.ultimoAcesso = ultimoAcesso;
-    }
-     */
     public boolean saveOnDatabase() {
         return UsuarioPersistence.save(this);
+    }
+
+    public static Usuario login(String email, String senha) {
+        return UsuarioPersistence.login(email, senha);
     }
 
 }
