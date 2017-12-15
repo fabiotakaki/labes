@@ -42,18 +42,19 @@ public class UsuarioPersistence {
         }
         return commited;
     }
-    
+
     public static Usuario login(String email, String senha){
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        
+
         Query q = session.createQuery("from Usuario where userName = :email and senha = :senha");
         q.setParameter("email", email);
         q.setParameter("senha", senha);
         List queryResult = q.list();
         System.out.println(queryResult);
+        LOGGER.log(Level.INFO, queryResult);
         session.close();
-        
+
         System.out.println(queryResult.size());
         if(queryResult.size()>1 || queryResult.isEmpty())
             return null;
