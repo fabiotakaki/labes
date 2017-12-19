@@ -36,8 +36,8 @@
                             <li><a href="#">Link</a></li>
                     </ul>-->
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="login.jsp">Acessar <i class="fas fa-sign-in-alt"></i></a></li>
-                        <li><a href="registrarusuario.jsp">Registrar <i class="fas fa-user-plus"></i></a></li>
+                        <li><a href="login.html">Acessar <i class="fas fa-sign-in-alt"></i></a></li>
+                        <li><a href="registrarusuario.html">Registrar <i class="fas fa-user-plus"></i></a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
@@ -63,6 +63,8 @@
                     <h2>Características</h2>
                     <p>lorem ipsum</p>
                 </div>
+                <% String s = "hello"; %>
+                <%=s%>
             </div>
             <hr>
             <footer>
