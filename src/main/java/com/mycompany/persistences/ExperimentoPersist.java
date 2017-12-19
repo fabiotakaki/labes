@@ -13,9 +13,52 @@ import java.util.List;
  * @author Rogerio
  */
 public class ExperimentoPersist {
-
+    private static final Logger LOGGER = Logger.getLogger(ExperimentoPersist.class.getName());
+    
     public static List<Experimento> listarExperimentos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        boolean commited = false;
+        Transaction t = null;
+        try {
+            t = session.beginTransaction();
+            Query query = session.createQuery("from Experimento");
+            List<Experimento> list = query.list();
+            t.commit();
+            commited = true;
+            return list;
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
+            if (t != null && !t.wasCommitted()) {
+                t.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return commited;
+    }
+    
+
+
+    public static boolean save(Experimento experimento) {
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        boolean commited = false;
+        Transaction t = null;
+        try {
+            t = session.beginTransaction();
+            session.save(experimento);
+            t.commit();
+            commited = true;
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
+            if (t != null && !t.wasCommitted()) {
+                t.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return commited;
     }
     
 }
