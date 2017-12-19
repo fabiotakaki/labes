@@ -14,13 +14,14 @@ import com.mycompany.model.Experimento;
  */
 public class ControllerDefinicao {
 
-    public static boolean createDefinicao(Experimento experimento, String objEstudo, String objetivo, String perspectiva,
-            String focoQualidade, String contexto, boolean editavel) {
+    public static boolean createDefinicao(Experimento experimento, String objEstudo, 
+            String objetivo, String perspectiva, String focoQualidade, String contexto, boolean editavel) {
 
-        if (experimento != null && objEstudo != null && objetivo != null && perspectiva != null
-                && focoQualidade != null && contexto != null) {
-
-            Definicao novaDefinicao = new Definicao(experimento, objEstudo, objetivo, perspectiva, focoQualidade, contexto, editavel, editavel);
+        if (experimento != null && objEstudo != null && objetivo != null 
+                && perspectiva != null && focoQualidade != null && contexto != null) {
+            
+            Definicao novaDefinicao = new Definicao(experimento, objEstudo, objetivo, 
+                    perspectiva, focoQualidade, contexto, editavel, editavel);
             return novaDefinicao.saveOnDatabase();
         }
 
