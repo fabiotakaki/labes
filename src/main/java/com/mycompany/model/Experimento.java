@@ -5,13 +5,20 @@
  */
 package com.mycompany.model;
 
+import com.mycompany.persistences.ExperimentoPersistence;
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -25,32 +32,43 @@ public class Experimento implements Serializable {
     @Column(name = "experimentoID", unique = true, nullable = false)
     private Integer id;
 
+    @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "descricao")
     private String descricao;
-    private int criador; //id do experimentador que criou
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Usuario criador; //id do experimentador que criou
+
+    @Column(name = "is_concluido")
     private boolean concluido;
-    private boolean replicacao; //se pode ser replicado ou não 1 == pode , 0 == não pode
+
+    @Column(name = "is_replicavel")
+    private boolean isReplicavel; // true = replicavel
 
     @Column(name = "dataInicial")
-    private Calendar data_inicial;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Calendar dataInicial;
 
-    
-    
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idDefinicao")
     private Definicao definicao;
-    
-    
-    public Experimento(){
+
+    public Experimento() {
+        // default constructor
     }
-    
-    public Experimento(String nome, String descricao){
+
+
+    public Experimento(String nome, String descricao, boolean concluido, Calendar dataInicial, boolean isReplicavel, Usuario usuario) {
         this.nome = nome;
         this.descricao = descricao;
-        this.concluido = false;
+        this.concluido = concluido;
+        this.dataInicial = dataInicial;
+        this.isReplicavel = isReplicavel;
+        this.criador = usuario;
     }
-    
-    
+
     public String getNome() {
         return nome;
     }
@@ -67,11 +85,11 @@ public class Experimento implements Serializable {
         this.descricao = descricao;
     }
 
-    public int getCriador() {
+    public Usuario getCriador() {
         return criador;
     }
 
-    public void setCriador(int criador) {
+    public void setCriador(Usuario criador) {
         this.criador = criador;
     }
 
@@ -83,20 +101,20 @@ public class Experimento implements Serializable {
         this.concluido = concluido;
     }
 
-    public boolean isReplicacao() {
-        return replicacao;
+    public boolean isIsReplicavel() {
+        return isReplicavel;
     }
 
-    public void setReplicacao(boolean replicacao) {
-        this.replicacao = replicacao;
-    }
-    
-    public Calendar getData_inicial() {
-        return data_inicial;
+    public void setIsReplicavel(boolean isReplicavel) {
+        this.isReplicavel = isReplicavel;
     }
 
-    public void setData_inicial(Calendar data_inicial) {
-        this.data_inicial = data_inicial;
+    public Calendar getDataInicial() {
+        return dataInicial;
+    }
+
+    public void setDataInicial(Calendar dataInicial) {
+        this.dataInicial = dataInicial;
     }
 
     public Definicao getDefinicao() {
