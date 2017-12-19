@@ -6,7 +6,7 @@
 package com.mycompany.controller;
 
 import com.mycompany.model.Experimento;
-import com.mycompany.persistences.ExperimentoPersist;
+import com.mycompany.persistences.ExperimentoPersistence;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class ControllerExperimento {
     }
     
     public static List<Experimento> listarExperimentos(){
-        return ExperimentoPersist.listarExperimentos(); 
+        return ExperimentoPersistence.listarExperimentos(); 
     }
     
 }

@@ -5,13 +5,20 @@
  */
 package com.mycompany.model;
 
+import com.mycompany.persistences.ExperimentoPersistence;
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -29,7 +36,7 @@ public class Experimento implements Serializable {
     private String descricao;
     private int criador; //id do experimentador que criou
     private boolean concluido;
-    private boolean replicacao; //se pode ser replicado ou não 1 == pode , 0 == não pode
+    private boolean isReplicavel; //se pode ser replicado ou não 1 == pode , 0 == não pode
 
     @Column(name = "dataInicial")
     private Calendar data_inicial;
@@ -44,10 +51,11 @@ public class Experimento implements Serializable {
     public Experimento(){
     }
     
-    public Experimento(String nome, String descricao){
+    public Experimento(String nome, String descricao, boolean concluido, boolean isReplicavel){
         this.nome = nome;
         this.descricao = descricao;
-        this.concluido = false;
+        this.concluido = concluido;
+        this.isReplicavel = isReplicavel;
     }
     
     
@@ -83,12 +91,12 @@ public class Experimento implements Serializable {
         this.concluido = concluido;
     }
 
-    public boolean isReplicacao() {
-        return replicacao;
+    public boolean isIsReplicavel() {
+        return isReplicavel;
     }
 
-    public void setReplicacao(boolean replicacao) {
-        this.replicacao = replicacao;
+    public void setIsReplicavel(boolean isReplicavel) {
+        this.isReplicavel = isReplicavel;
     }
     
     public Calendar getData_inicial() {
@@ -116,12 +124,7 @@ public class Experimento implements Serializable {
     }
 
     public boolean saveOnDatabase() {
-       EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(this);
-        em.getTransaction().commit();
-        em.close();
+        return ExperimentoPersistence.save(this);
     }
 
 }

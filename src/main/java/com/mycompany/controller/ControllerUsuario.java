@@ -13,7 +13,10 @@ import com.mycompany.model.Usuario;
  */
 public class ControllerUsuario {
 
-    public static Usuario usuario = null;
+    private static Usuario usuario = null;
+
+    private ControllerUsuario(){
+    }
 
     public static boolean createUsuario(String email, String senha) {
         Usuario novoUsuario = new Usuario(email, senha);
