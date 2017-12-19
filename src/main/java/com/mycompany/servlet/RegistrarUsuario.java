@@ -19,8 +19,7 @@ public class RegistrarUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        try (PrintWriter out = response.getWriter()) {
             String htmlResponse = "<html>";
             if (createUsuario(request, response)) {
                 htmlResponse += "<h2>Usuário cadastrado com sucesso!</h2>";
@@ -31,8 +30,6 @@ public class RegistrarUsuario extends HttpServlet {
                 LOGGER.log(Level.SEVERE, "ERRO: [consulte banco]");
             }
             out.println(htmlResponse);
-        } finally {
-            out.close();
         }
     }
 

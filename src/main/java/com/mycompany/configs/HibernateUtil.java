@@ -7,6 +7,9 @@ package com.mycompany.configs;
 
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.hibernate.HibernateException;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -17,15 +20,18 @@ import org.hibernate.SessionFactory;
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
+    private static final Logger LOGGER = Logger.getLogger(HibernateUtil.class.getName());
+    
+    private HibernateUtil(){}
 
     static {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml)
             // config file.
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
+        } catch (HibernateException ex) {
             // Log the exception.
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", ex.getMessage());
             throw new ExceptionInInitializerError(ex);
         }
     }
