@@ -116,12 +116,7 @@ public class Experimento implements Serializable {
     }
 
     public boolean saveOnDatabase() {
-       EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistenceUnit");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(this);
-        em.getTransaction().commit();
-        em.close();
+        return ExperimentoPersistence.save(this);
     }
 
 }
