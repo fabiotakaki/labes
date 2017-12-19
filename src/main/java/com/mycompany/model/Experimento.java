@@ -106,14 +106,17 @@ public class Experimento implements Serializable {
     public void setDefinicao(Definicao definicao) {
         this.definicao = definicao;
     }
-    
-    
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean saveOnDatabase() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
