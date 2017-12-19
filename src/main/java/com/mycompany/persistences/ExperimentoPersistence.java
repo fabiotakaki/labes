@@ -13,7 +13,7 @@ import java.util.List;
  * @author Rogerio
  */
 public class ExperimentoPersistence {
-    private static final Logger LOGGER = Logger.getLogger(ExperimentoPersist.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ExperimentoPersistence.class.getName());
 
     public static List<Experimento> listarExperimentos() {
        SessionFactory factory = HibernateUtil.getSessionFactory();
