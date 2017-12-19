@@ -35,7 +35,7 @@ public class ExperimentoPersistence {
         Transaction t = null;
         try {
             t = session.beginTransaction();
-            session.save(experimento);
+            session.saveOrUpdate(experimento);
             t.commit();
             commited = true;
         } catch (Exception e) {
