@@ -5,8 +5,12 @@
  */
 package com.mycompany.servlet;
 
+import com.mycompany.controller.ControllerExperimento;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "RegistrarExperimento", urlPatterns = {"/RegistrarExperimento"})
 public class RegistrarExperimento extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(RegistrarExperimento.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,16 +39,16 @@ public class RegistrarExperimento extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RegistrarExperimento</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RegistrarExperimento at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String htmlResponse = "<html>";
+            if (createExperimento(request, response)) {
+                htmlResponse += "<h2>Experimento cadastrado com sucesso!</h2>";
+                htmlResponse += "</html>";
+            } else {
+                htmlResponse += "<h2>Erro ao cadastrar o experimento, verifique o log para mais detalhes!</h2>";
+                htmlResponse += "</html>";
+                LOGGER.log(Level.SEVERE, "ERRO: [consulte banco]");
+            }
+            out.println(htmlResponse);
         }
     }
 
@@ -82,7 +88,20 @@ public class RegistrarExperimento extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet responsável pelo registro de novos experimentos";
     }// </editor-fold>
+
+    private boolean createExperimento(HttpServletRequest request, HttpServletResponse response) {
+        String nome, descricao;
+        boolean isReplicavel;
+        Date data_inicio;
+        //Integer idCriador = Integer.parseInt(request.getParameter("idExperimentador"));
+
+        nome = request.getParameter("nome");
+        descricao = request.getParameter("descricao");
+        isReplicavel = request.getParameter("replicacao").equals("0");
+        LOGGER.log(Level.INFO, "Nome: {0}\nDescricao: {1}\nisReplicavel: {2}\nData: {3}", new Object[]{nome, descricao, isReplicavel, request.getParameter("data_inicial")});
+        return ControllerExperimento.createExperimento(nome, descricao, isReplicavel);
+    }
 
 }

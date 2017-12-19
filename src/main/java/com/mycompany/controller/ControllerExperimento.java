@@ -14,16 +14,16 @@ import java.util.List;
  * @author Rogerio
  */
 public class ControllerExperimento {
-    
-    public static boolean createExperimento(String nome, String descricao) {
+
+    public static boolean createExperimento(String nome, String descricao, boolean isReplicavel) {
         /*Atributos atuais de um experimento: Nome, Descricao, Concluido, Replicado*/
         //Usuario usuarioLogado = ControllerUsuario.usuario; Se for usar o usuario no construtor
-        Experimento novoExperimento = new Experimento(nome, descricao, false, false); // Ver questão do usuario
+        Experimento novoExperimento = new Experimento(nome, descricao, false, isReplicavel); // Ver questão do usuario
         return novoExperimento.saveOnDatabase();
     }
-    
-    public static List<Experimento> listarExperimentos(){
-        return ExperimentoPersistence.listarExperimentos(); 
+
+    public static List<Experimento> listarExperimentos() {
+        return ExperimentoPersistence.listarExperimentos();
     }
-    
+
 }

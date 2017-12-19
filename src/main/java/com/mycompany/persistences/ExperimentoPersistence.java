@@ -19,9 +19,10 @@ import org.hibernate.Transaction;
  * @author Rogerio
  */
 public class ExperimentoPersistence {
+
     private static final Logger LOGGER = Logger.getLogger(ExperimentoPersistence.class.getName());
-    
-    public static boolean save(Experimento experimento){
+
+    public static boolean save(Experimento experimento) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         boolean commited = false;
@@ -45,5 +46,5 @@ public class ExperimentoPersistence {
     public static List<Experimento> listarExperimentos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
