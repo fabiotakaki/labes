@@ -40,7 +40,8 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String htmlResponse = "<html>";
-            if (request.getParameter("email") == null || request.getParameter("email").equals("") || request.getParameter("senha") == null || request.getParameter("senha").equals("")) {
+            if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) || 
+                    request.getParameter("senha") == null || ("").equals(request.getParameter("senha"))) {
                 htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
                 htmlResponse += "</html>";
             }
@@ -86,6 +87,16 @@ public class LoginServlet extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Servlet Responsavel pelo login";
+    }// </editor-fold>
+    
     public boolean login(HttpServletRequest request, HttpServletResponse response) {
         boolean isLogged = false;
         try {
@@ -97,18 +108,9 @@ public class LoginServlet extends HttpServlet {
             LOGGER.log(Level.INFO, String.valueOf(isLogged));
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
+            throw e;
         }
         return isLogged;
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Servlet Responsavel pelo login";
-    }// </editor-fold>
 
 }

@@ -33,9 +33,6 @@ public class Usuario implements Serializable {
     @Column(name = "senha", nullable = false, unique = false)
     private String senha;
 
-    //@Column(name="lastAccess", unique=true)
-    //@Temporal(TemporalType.DATE)
-    //private Date ultimoAcesso;
     public Usuario(String nomeUsuario, String senha) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
@@ -67,6 +64,10 @@ public class Usuario implements Serializable {
 
     public static Usuario login(String email, String senha) {
         return UsuarioPersistence.login(email, senha);
+    }
+    
+    public static Usuario buscaUsuario(Integer idUsuario){
+        return UsuarioPersistence.getUsuario(idUsuario);
     }
 
 }

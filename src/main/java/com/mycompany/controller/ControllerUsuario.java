@@ -27,5 +27,9 @@ public class ControllerUsuario {
         usuario = Usuario.login(email, senha);
         return usuario != null;
     }
+    
+    public static Usuario buscaUsuario(Integer idUsuario){
+        return Usuario.buscaUsuario(idUsuario);
+    }
 
 }

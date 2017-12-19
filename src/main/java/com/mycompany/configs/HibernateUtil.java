@@ -21,6 +21,8 @@ public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
     private static final Logger LOGGER = Logger.getLogger(HibernateUtil.class.getName());
+    
+    private HibernateUtil(){}
 
     static {
         try {

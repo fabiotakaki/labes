@@ -56,14 +56,17 @@ public class Experimento implements Serializable {
     private Definicao definicao;
 
     public Experimento() {
+        // default constructor
     }
 
-    public Experimento(String nome, String descricao, boolean concluido, Calendar dataInicial, boolean isReplicavel) {
+
+    public Experimento(String nome, String descricao, boolean concluido, Calendar dataInicial, boolean isReplicavel, Usuario usuario) {
         this.nome = nome;
         this.descricao = descricao;
         this.concluido = concluido;
         this.dataInicial = dataInicial;
         this.isReplicavel = isReplicavel;
+        this.criador = usuario;
     }
 
     public String getNome() {

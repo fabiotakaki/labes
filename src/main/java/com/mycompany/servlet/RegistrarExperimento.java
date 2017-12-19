@@ -95,13 +95,14 @@ public class RegistrarExperimento extends HttpServlet {
         return "Servlet responsável pelo registro de novos experimentos";
     }// </editor-fold>
 
-    private boolean createExperimento(HttpServletRequest request, HttpServletResponse response) {
+    private boolean createExperimento(HttpServletRequest request, HttpServletResponse response){
         boolean commited = false;
         try {
             String nome, descricao;
             boolean isReplicavel;
             Calendar data_inicio;
-            //Integer idCriador = Integer.parseInt(request.getParameter("idExperimentador"));
+            //Integer idUsuario = Integer.parseInt(request.getParameter("idExperimentador"));
+            Integer idUsuario = 1;
             nome = request.getParameter("nome");
             descricao = request.getParameter("descricao");
             isReplicavel = request.getParameter("replicacao").equals("0");
@@ -110,7 +111,7 @@ public class RegistrarExperimento extends HttpServlet {
             Date date = sdf.parse(request.getParameter("data_inicial"));
             data_inicio = Calendar.getInstance();
             data_inicio.setTime(date);
-            commited = ControllerExperimento.createExperimento(nome, descricao, data_inicio, isReplicavel);
+            commited = ControllerExperimento.createExperimento(nome, descricao, data_inicio, isReplicavel, idUsuario);
         } catch (ParseException ex) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", ex.getMessage());
         }
