@@ -8,7 +8,11 @@ package com.mycompany.servlet;
 import com.mycompany.controller.ControllerExperimento;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -92,16 +96,25 @@ public class RegistrarExperimento extends HttpServlet {
     }// </editor-fold>
 
     private boolean createExperimento(HttpServletRequest request, HttpServletResponse response) {
-        String nome, descricao;
-        boolean isReplicavel;
-        Date data_inicio;
-        //Integer idCriador = Integer.parseInt(request.getParameter("idExperimentador"));
-
-        nome = request.getParameter("nome");
-        descricao = request.getParameter("descricao");
-        isReplicavel = request.getParameter("replicacao").equals("0");
-        LOGGER.log(Level.INFO, "Nome: {0}\nDescricao: {1}\nisReplicavel: {2}\nData: {3}", new Object[]{nome, descricao, isReplicavel, request.getParameter("data_inicial")});
-        return ControllerExperimento.createExperimento(nome, descricao, isReplicavel);
+        boolean commited = false;
+        try {
+            String nome, descricao;
+            boolean isReplicavel;
+            Calendar data_inicio;
+            //Integer idCriador = Integer.parseInt(request.getParameter("idExperimentador"));
+            nome = request.getParameter("nome");
+            descricao = request.getParameter("descricao");
+            isReplicavel = request.getParameter("replicacao").equals("0");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
+            Date date = sdf.parse(request.getParameter("data_inicial"));
+            data_inicio = Calendar.getInstance();
+            data_inicio.setTime(date);
+            commited = ControllerExperimento.createExperimento(nome, descricao, data_inicio, isReplicavel);
+        } catch (ParseException ex) {
+            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", ex.getMessage());
+        }
+        return commited;
     }
 
 }

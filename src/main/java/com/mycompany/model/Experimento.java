@@ -33,21 +33,21 @@ public class Experimento implements Serializable {
 
     @Column(name = "nome", nullable = false)
     private String nome;
-    
+
     @Column(name = "descricao")
     private String descricao;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario criador; //id do experimentador que criou
-    
+
     @Column(name = "is_concluido")
     private boolean concluido;
-    
+
     @Column(name = "is_replicavel")
     private boolean isReplicavel; // true = replicavel
 
     @Column(name = "dataInicial")
-    private Calendar data_inicial;
+    private Calendar dataInicial;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idDefinicao")
@@ -56,10 +56,11 @@ public class Experimento implements Serializable {
     public Experimento() {
     }
 
-    public Experimento(String nome, String descricao, boolean concluido, boolean isReplicavel) {
+    public Experimento(String nome, String descricao, boolean concluido, Calendar dataInicial, boolean isReplicavel) {
         this.nome = nome;
         this.descricao = descricao;
         this.concluido = concluido;
+        this.dataInicial = dataInicial;
         this.isReplicavel = isReplicavel;
     }
 
@@ -103,12 +104,12 @@ public class Experimento implements Serializable {
         this.isReplicavel = isReplicavel;
     }
 
-    public Calendar getData_inicial() {
-        return data_inicial;
+    public Calendar getDataInicial() {
+        return dataInicial;
     }
 
-    public void setData_inicial(Calendar data_inicial) {
-        this.data_inicial = data_inicial;
+    public void setDataInicial(Calendar dataInicial) {
+        this.dataInicial = dataInicial;
     }
 
     public Definicao getDefinicao() {
