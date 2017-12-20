@@ -5,8 +5,15 @@
  */
 package com.mycompany.persistences;
 
+import com.mycompany.configs.HibernateUtil;
 import com.mycompany.model.Experimento;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -20,13 +27,13 @@ public class ExperimentoPersistence {
         Session session = factory.openSession();
         boolean commited = false;
         Transaction t = null;
+        List<Experimento> list = null;
         try {
             t = session.beginTransaction();
-            Query query = session.createQuery("from Experimento");
-            List<Experimento> list = query.list();
+            Query query = session.createQuery("from Experimento"); //Utiliza HQL (Diferente de SQL, mas ...)
+            list = query.list();
             t.commit();
             commited = true;
-            return list;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
             if (t != null && !t.wasCommitted()) {
@@ -35,7 +42,10 @@ public class ExperimentoPersistence {
         } finally {
             session.close();
         }
-        return commited;
+        if(commited){
+            return list;
+        }
+        return null;
     }
 
 
