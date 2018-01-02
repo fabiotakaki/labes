@@ -5,27 +5,20 @@
  */
 package com.mycompany.servlet;
 
-import com.mycompany.controller.ControllerUsuario;
-import com.mycompany.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author sidious
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,26 +32,17 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            String htmlResponse = "<html>";
-            if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) || 
-                    request.getParameter("senha") == null || ("").equals(request.getParameter("senha"))) {
-                htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
-                htmlResponse += "</html>";
-            }
-            Usuario user = login(request, response);
-            if (user != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user.getNomeUsuario());
-                response.sendRedirect("home.jsp");
-            } else {
-                htmlResponse += "<h2>Falha no login!</h2>";
-                htmlResponse += "</html>";
-            }
-            out.println(htmlResponse);
-        } finally {
-            out.close();
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LogoutServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -98,23 +82,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet Responsavel pelo login";
+        return "Short description";
     }// </editor-fold>
-    
-    public Usuario login(HttpServletRequest request, HttpServletResponse response) {
-        Usuario user = null;
-        try {
-            String email, senha;
-            email = request.getParameter("email");
-            senha = request.getParameter("senha");
-
-            user = ControllerUsuario.login(email, senha);
-            //LOGGER.log(Level.INFO, String.valueOf(isLogged));
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
-            throw e;
-        }
-        return user;
-    }
 
 }
