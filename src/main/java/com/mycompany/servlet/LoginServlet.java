@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
                 htmlResponse += "</html>";
             }
             if (login(request, response)) {
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");
             } else {
                 htmlResponse += "<h2>Falha no login!</h2>";
                 htmlResponse += "</html>";
@@ -104,7 +104,7 @@ public class LoginServlet extends HttpServlet {
             senha = request.getParameter("senha");
 
             isLogged = ControllerUsuario.login(email, senha);
-            LOGGER.log(Level.INFO, String.valueOf(isLogged));
+            //LOGGER.log(Level.INFO, String.valueOf(isLogged));
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
             throw e;

@@ -52,8 +52,7 @@ public class UsuarioPersistence {
         q.setParameter("email", email);
         q.setParameter("senha", senha);
         List queryResult = q.list();
-        //System.out.println(queryResult);
-        LOGGER.log(Level.INFO, String.valueOf(queryResult));
+        //LOGGER.log(Level.INFO, String.valueOf(queryResult));
         session.close();
 
         //System.out.println(queryResult.size());
