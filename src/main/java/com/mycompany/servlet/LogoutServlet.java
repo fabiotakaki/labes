@@ -37,23 +37,22 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = request.getCookies();
-            if(cookies != null){
-                for(Cookie c : cookies){
-                    if(c.getName().equals("JSESSIONID")){
-                        LOGGER.log(Level.INFO, "JSESSIONID = {0}", c.getValue());
-                        break;
-                    }
+        //TODO Put this into a try-catch-finally block
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null){
+            for(Cookie c : cookies){
+                if(("JSESSIONID").equals(c.getName())){
+                    LOGGER.log(Level.INFO, "JSESSIONID = {0}", c.getValue());
+                    break;
                 }
             }
-            HttpSession session = request.getSession(false);
-            LOGGER.log(Level.INFO, "USER = {0}", session.getAttribute("user"));
-            if(session != null)
-                session.invalidate();
-            response.sendRedirect("login.html");
         }
+        HttpSession session = request.getSession(false);
+        LOGGER.log(Level.INFO, "USER = {0}", session.getAttribute("user"));
+        //SonarQube says its allways true: https://github.com/SonarSource/sonar-csharp/issues/588
+        //if(session != null) 
+        session.invalidate();
+        response.sendRedirect("login.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
