@@ -33,9 +33,11 @@ public class ExperimentoPersistence {
         Session session = factory.openSession();
         boolean commited = false;
         Transaction t = null;
+        List<Experimento> list = null;
         try {
             t = session.beginTransaction();
-            session.saveOrUpdate(experimento);
+            Query query = session.createQuery("from Experimento"); //Utiliza HQL (Diferente de SQL, mas ...)
+            list = query.list();
             t.commit();
             commited = true;
         } catch (Exception e) {
@@ -47,7 +49,10 @@ public class ExperimentoPersistence {
         } finally {
             session.close();
         }
-        return commited;
+        if(commited){
+            return list;
+        }
+        return null;
     }
 
     public static List<Experimento> listarExperimentos() {
