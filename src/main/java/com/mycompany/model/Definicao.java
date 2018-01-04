@@ -23,6 +23,25 @@ import javax.persistence.OneToOne;
 @Entity
 public class Definicao implements Serializable {
 
+    public Definicao(Experimento experimento, String objEstudo, String objetivo, String perspectiva, String focoQualidade, String contexto, boolean editvel, boolean concluido) {
+        this.experimento = experimento;
+        this.objEstudo = objEstudo;
+        this.objetivo = objetivo;
+        this.perspectiva = perspectiva;
+        this.focoQualidade = focoQualidade;
+        this.contexto = contexto;
+        this.editvel = editvel;
+        this.concluido = concluido;
+    }
+
+    public Definicao() {
+    }
+
+    public boolean saveOnDatabase() {
+        return DefinicaoPersistence.save(this);
+    }
+    
+
     @Id
     @GeneratedValue
     private int idDef;
