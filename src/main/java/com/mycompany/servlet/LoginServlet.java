@@ -46,8 +46,7 @@ public class LoginServlet extends HttpServlet {
                 htmlResponse += "</html>";
             }
             if (login(request, response)) {
-                htmlResponse += "<h2>Usuário logado com sucesso!</h2>";
-                htmlResponse += "</html>";
+                response.sendRedirect("index.html");
             } else {
                 htmlResponse += "<h2>Falha no login!</h2>";
                 htmlResponse += "</html>";

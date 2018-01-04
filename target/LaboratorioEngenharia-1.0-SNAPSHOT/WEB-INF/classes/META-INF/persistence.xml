@@ -9,7 +9,7 @@
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/laboratorioengenharia"/>
       <property name="hibernate.connection.user" value="root"/>
-      <property name="hibernate.connection.password" value="=]P4$$w0rd"/>
+      <property name="hibernate.connection.password" value=""/>
       <!--             <property name="hibernate.hbm2ddl.auto" value="create" /> -->
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <!--Configuracoes de Debug-->
