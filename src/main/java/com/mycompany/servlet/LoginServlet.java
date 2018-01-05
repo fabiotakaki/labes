@@ -51,12 +51,19 @@ public class LoginServlet extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user.getNomeUsuario());
-                response.sendRedirect("home.jsp");
+                session.setMaxInactiveInterval(30 * 60);
+                Cookie userName = new Cookie("user", user.getNomeUsuario());
+                response.addCookie(userName);
+                String encodeURL = response.encodeRedirectURL("home.jsp");
+                response.sendRedirect(encodeURL);
             } else {
-                htmlResponse += "<h2>Falha no login!</h2>";
-                htmlResponse += "</html>";
+            	RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
+            	out.println("<h2>Email ou senha inválidos!</h2>");
+            	rd.include(request, response);
+                //htmlResponse += "<h2>Email ou senha inválidos!</h2>";
+                //htmlResponse += "</html>";
             }
-            out.println(htmlResponse);
+            //out.println(htmlResponse);
         } finally {
             out.close();
         }

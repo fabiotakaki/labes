@@ -12,7 +12,7 @@
         <title>QPA | Home</title>
     </head>
     <body>
-        <% 
+        <%
             // Only allow autenticated users
             String user = null;
             if(session.getAttribute("user") == null){
@@ -28,6 +28,8 @@
                     if(c.getName().equals("JSESSIONID"))
                         sessionID = c.getValue();
                 }
+            }else{
+                sessionID = session.getId();
             }
         %>
         <%@include file="base/navbarlogged.jsp" %>
@@ -52,7 +54,7 @@
                     <h2>Características</h2>
                     <p>lorem ipsum</p>
                 </div>
-                <h3>Bem vindo <%= userName %>, você foi autenticado com sucesso. SESSIONID = <%= sessionID %></h3>
+                <h3>Bem vindo <%= userName %>, você foi autenticado com sucesso.</h3>
             </div>
             <hr>
             <%@include file="base/footer.jsp" %>

@@ -45,13 +45,15 @@ public class LogoutServlet extends HttpServlet {
                     LOGGER.log(Level.INFO, "JSESSIONID = {0}", c.getValue());
                     break;
                 }
+                c.setMaxAge(0);
+                response..addCookie(c);
             }
         }
         HttpSession session = request.getSession(false);
         LOGGER.log(Level.INFO, "USER = {0}", session.getAttribute("user"));
         //SonarQube says its allways true: https://github.com/SonarSource/sonar-csharp/issues/588
-        //if(session != null) 
-        session.invalidate();
+        if(session != null)
+            session.invalidate();
         response.sendRedirect("login.jsp");
     }
 
