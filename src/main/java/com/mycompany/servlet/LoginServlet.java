@@ -40,13 +40,13 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             String htmlResponse = "<html>";
-            if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) || 
+            if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) ||
                     request.getParameter("senha") == null || ("").equals(request.getParameter("senha"))) {
                 htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
                 htmlResponse += "</html>";
             }
             if (login(request, response)) {
-                response.sendRedirect("index.html");
+                response.sendRedirect("registrarexperimento.html");
             } else {
                 htmlResponse += "<h2>Falha no login!</h2>";
                 htmlResponse += "</html>";
@@ -95,7 +95,7 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Servlet Responsavel pelo login";
     }// </editor-fold>
-    
+
     public boolean login(HttpServletRequest request, HttpServletResponse response) {
         boolean isLogged = false;
         try {
