@@ -49,10 +49,7 @@ public class ExperimentoPersistence {
         } finally {
             session.close();
         }
-        if(commited){
-            return list;
-        }
-        return null;
+        return commited;
     }
 
     public static List<Experimento> listarExperimentos() {
