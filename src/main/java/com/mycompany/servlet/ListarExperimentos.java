@@ -59,8 +59,8 @@ public class ListarExperimentos extends HttpServlet {
             throws ServletException, IOException {
         List<Experimento> experimentos = listarExperimentos(request, response);
 
-        Iterator iter = experimentos.iterator();
-        LOGGER.log(Level.SEVERE, "Experimento 1: {0}", String.valueOf(iter.next()));
+        //Iterator iter = experimentos.iterator();
+        //LOGGER.log(Level.SEVERE, "Experimento 1: {0}", String.valueOf(iter.next()));
         request.setAttribute("experimentos", experimentos);
 
         response.sendRedirect("experimentos.jsp");

@@ -32,6 +32,7 @@ public class ExperimentoPersistence {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         boolean commited = false;
+        LOGGER.log(Level.SEVERE, "Antes do try");
         Transaction t = null;
         try {
             t = session.beginTransaction();

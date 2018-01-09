@@ -40,12 +40,27 @@
         <jsp:include page="/ListarExperimentos" />
         <%@include file="base/navbarlogged.jsp" %>
         <div class="container">
+            <div class="row">
+                <form class="navbar-form" role="search" method="get"
+                  action="BuscaExperimento">
+                <input type="text" class="form-control" name="q" placeholder="Busca">
+                <button type="submit" class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                </button>
+                <a class="btn btn-success btn-lg pull-right" href="<%= response.encodeURL("registrarexperimento.jsp")%>">
+                    <i class="fas fa-plus"></i>&nbsp; Adicionar Experimento
+                </a>
+            </form>
+            </div>
+            <br>
 
             <c:choose>
                 <c:when test="${empty experimentos}">
-                    <div class="panel panel-heading">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <i class="fas fa-exclamation-triangle"></i>&nbsp;
+                        </div>
                         <div class="panel-body">
-                            <i class="fas fa-exclamation-triangle"></i>
                             Você não possui nenhum experimento.<br>
                             Adicione um novo experimento utilizando o botão acima.
                         </div>

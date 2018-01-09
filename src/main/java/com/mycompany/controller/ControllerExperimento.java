@@ -20,10 +20,9 @@ public class ControllerExperimento {
     private ControllerExperimento(){
     }
 
-    public static boolean createExperimento(String nome, String descricao, Calendar dataInicial, boolean isReplicavel, Integer idUsuario) {
+    public static boolean createExperimento(String nome, String descricao, Calendar dataInicial, boolean isReplicavel, Usuario usuario) {
         /*Atributos atuais de um experimento: Nome, Descricao, Concluido, Replicado*/
         //Usuario usuarioLogado = ControllerUsuario.usuario; Se for usar o usuario no construtor
-        Usuario usuario = ControllerUsuario.buscaUsuario(idUsuario);
         Experimento novoExperimento = new Experimento(nome, descricao, false, dataInicial, isReplicavel, usuario); // Ver questão do usuario
         return novoExperimento.saveOnDatabase();
     }
