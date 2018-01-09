@@ -20,16 +20,16 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <!--<ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
-            </ul>-->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<%= response.encodeURL("login.jsp") %>">
                         <i class="fas fa-sign-in-alt"></i>&nbsp; Acessar
                     </a>
                 </li>
-                <li><a href="registrarusuario.html">Registrar <i class="fas fa-user-plus"></i></a></li>
+                <li>
+                    <a href="<%= response.encodeURL("registrarusuario.jsp") %>">
+                        <i class="fas fa-user-plus"></i>&nbsp; Registrar
+                    </a>
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div>
