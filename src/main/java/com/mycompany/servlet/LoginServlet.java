@@ -6,15 +6,19 @@
 package com.mycompany.servlet;
 
 import com.mycompany.controller.ControllerUsuario;
+import com.mycompany.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,13 +49,30 @@ public class LoginServlet extends HttpServlet {
                 htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
                 htmlResponse += "</html>";
             }
+<<<<<<< HEAD
             if (login(request, response)) {
                 response.sendRedirect("registrarexperimento.html");
+=======
+            Usuario user = login(request, response);
+            if (user != null) {
+                // Cria uma sessão de usuário
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user.getNomeUsuario());
+                session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
+                // cria um cookie para o usuário
+                Cookie userName = new Cookie("user", user.getNomeUsuario());
+                response.addCookie(userName);
+                String encodeURL = response.encodeRedirectURL("home.jsp");
+                response.sendRedirect(encodeURL);
+>>>>>>> ba6b4bd1d9712e4693e8d40433f21a1b3906d46c
             } else {
-                htmlResponse += "<h2>Falha no login!</h2>";
-                htmlResponse += "</html>";
+            	RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
+            	out.println("<h2>Email ou senha inválidos!</h2>");
+            	rd.include(request, response);
+                //htmlResponse += "<h2>Email ou senha inválidos!</h2>";
+                //htmlResponse += "</html>";
             }
-            out.println(htmlResponse);
+            //out.println(htmlResponse);
         } finally {
             out.close();
         }
@@ -95,21 +116,27 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Servlet Responsavel pelo login";
     }// </editor-fold>
+<<<<<<< HEAD
 
     public boolean login(HttpServletRequest request, HttpServletResponse response) {
         boolean isLogged = false;
+=======
+    
+    public Usuario login(HttpServletRequest request, HttpServletResponse response) {
+        Usuario user = null;
+>>>>>>> ba6b4bd1d9712e4693e8d40433f21a1b3906d46c
         try {
             String email, senha;
             email = request.getParameter("email");
             senha = request.getParameter("senha");
 
-            isLogged = ControllerUsuario.login(email, senha);
-            LOGGER.log(Level.INFO, String.valueOf(isLogged));
+            user = ControllerUsuario.login(email, senha);
+            //LOGGER.log(Level.INFO, String.valueOf(isLogged));
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
             throw e;
         }
-        return isLogged;
+        return user;
     }
 
 }
