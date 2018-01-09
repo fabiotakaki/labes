@@ -46,7 +46,7 @@ public class LogoutServlet extends HttpServlet {
                     break;
                 }
                 c.setMaxAge(0);
-                response..addCookie(c);
+                response.addCookie(c);
             }
         }
         HttpSession session = request.getSession(false);

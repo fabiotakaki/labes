@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,9 +51,11 @@ public class LoginServlet extends HttpServlet {
             }
             Usuario user = login(request, response);
             if (user != null) {
+                // Cria uma sessão de usuário
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user.getNomeUsuario());
-                session.setMaxInactiveInterval(30 * 60);
+                session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
+                // cria um cookie para o usuário
                 Cookie userName = new Cookie("user", user.getNomeUsuario());
                 response.addCookie(userName);
                 String encodeURL = response.encodeRedirectURL("home.jsp");

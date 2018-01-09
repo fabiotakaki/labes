@@ -13,12 +13,11 @@
     </head>
     <body>
         <%
-            // Only allow autenticated users
             String userName = null;
+            // Only allow autenticated users
             if(session.getAttribute("user") == null){
                 response.sendRedirect("login.jsp");
-            }else user = (String) session.getAttribute("user");
-            //String username = null;
+            } else userName = (String) session.getAttribute("user");
             String sessionID = null;
             Cookie[] cookies = request.getCookies();
             if(cookies != null){

@@ -12,19 +12,18 @@
         <title>QPA</title>
     </head>
     <body>
-        <% 
+        <%
+            String userName = null;
             // Only allow autenticated users
-            String user = null;
             if(session.getAttribute("user") == null){
                 response.sendRedirect("login.jsp");
-            }else user = (String) session.getAttribute("user");
-            String username = null;
+            } else userName = (String) session.getAttribute("user");
             String sessionID = null;
             Cookie[] cookies = request.getCookies();
             if(cookies != null){
                 for(Cookie c : cookies){
                     if(c.getName().equals("user"))
-                        username = c.getValue();
+                        userName = c.getValue();
                 }
             }
         %>
@@ -32,7 +31,7 @@
         <div class="container">
             <h3>Deseja realmente sair? Qualquer trabalho não salvo será perdido.</h3>
             <br>
-            <form action="LogoutServlet" method="post">
+            <form action="<%= response.encodeURL("LogoutServlet") %>" method="post">
                 <button type="submit" class="btn btn-primary">Sair</button>
             </form>
             <hr>

@@ -25,7 +25,7 @@
                 <li><a href="#">Link</a></li>
             </ul>-->
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="login.jsp">Acessar <i class="fas fa-sign-in-alt"></i></a></li>
+                <li><a href="login.jsp">Acessar <i class="fas fa-sign-in-alt"></i></a></li>
                 <li><a href="registrarusuario.html">Registrar <i class="fas fa-user-plus"></i></a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
