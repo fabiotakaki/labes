@@ -12,22 +12,6 @@
         <title>QPA | Acesso</title>
     </head>
     <body>
-        <% 
-            // Only allow autenticated users
-            String user = null;
-            if(session.getAttribute("user") == null){
-                response.sendRedirect("login.html");
-            }else user = (String) session.getAttribute("user");
-            String username = null;
-            String sessionID = null;
-            Cookie[] cookies = request.getCookies();
-            if(cookies != null){
-                for(Cookie c : cookies){
-                    if(c.getName().equals("user"))
-                        username = c.getValue();
-                }
-            }
-        %>
         <%@include file="base/navbar.jsp" %>
         <div class="container">
             <form action="LoginServlet" method="POST" role="form" class="col-md-offset-5 col-md-3">
@@ -38,6 +22,8 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Acessar</button>
             </form>
+        </div>
+        <div class="container">
             <hr>
             <%@include file="base/footer.jsp" %>
         </div>

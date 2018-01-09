@@ -62,12 +62,28 @@ public class UsuarioPersistence {
         return (Usuario) queryResult.get(0);
     }
     
+    // Busca um usuario pelo id
     public static Usuario getUsuario(Integer idUsuario){
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         
         Query q = session.createQuery("from Usuario where id = :idUsuario");
         q.setParameter("idUsuario", idUsuario);
+        
+        List queryResult = q.list();
+        
+        if(queryResult.isEmpty())
+            return null;
+        return (Usuario) queryResult.get(0);
+    }
+    
+    // Busca um usuario pelo email
+    public static Usuario getUsuarioEmail(String email){
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        
+        Query q = session.createQuery("from Usuario where userName = :email");
+        q.setParameter("email", email);
         
         List queryResult = q.list();
         

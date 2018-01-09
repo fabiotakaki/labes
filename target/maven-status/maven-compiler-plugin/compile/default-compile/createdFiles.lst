@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 com/mycompany/model/Usuario.class
 com/mycompany/servlet/LoginServlet.class
 com/mycompany/configs/HibernateUtil.class
@@ -14,4 +12,4 @@ com/mycompany/model/Definicao.class
 com/mycompany/servlet/RegistrarUsuario.class
 com/mycompany/persistences/ExperimentoPersistence.class
 com/mycompany/controller/ControllerUsuario.class
->>>>>>> ba6b4bd1d9712e4693e8d40433f21a1b3906d46c
+com/mycompany/servlet/ListarExperimentos.class

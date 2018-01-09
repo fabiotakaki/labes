@@ -59,7 +59,6 @@ public class Experimento implements Serializable {
         // default constructor
     }
 
-
     public Experimento(String nome, String descricao, boolean concluido, Calendar dataInicial, boolean isReplicavel, Usuario usuario) {
         this.nome = nome;
         this.descricao = descricao;
@@ -133,8 +132,12 @@ public class Experimento implements Serializable {
         this.id = id;
     }
 
-    public boolean saveOnDatabase() {
-        return ExperimentoPersistence.save(this);
+    public Experimento saveOnDatabase() {
+        if (ExperimentoPersistence.save(this)) {
+            return this;
+        } else {
+            return null;
+        }
     }
 
 }

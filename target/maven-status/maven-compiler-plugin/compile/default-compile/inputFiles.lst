@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\controller\ControllerExperimento.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\persistences\ExperimentoPersistence.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\persistences\DefinicaoPersistence.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\configs\HibernateUtil.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\controller\ControllerDefinicao.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\persistences\UsuarioPersistence.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\controller\ControllerUsuario.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\servlet\RegistrarExperimento.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\model\Definicao.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\servlet\RegistrarUsuario.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\model\Experimento.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\model\Usuario.java
-C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\servlet\LoginServlet.java
-=======
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/persistences/UsuarioPersistence.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/servlet/RegistrarExperimento.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/configs/HibernateUtil.java
@@ -21,10 +6,10 @@ C:\Users\Diovanni\Documents\GitHub\labes\src\main\java\com\mycompany\servlet\Log
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/model/Experimento.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/persistences/DefinicaoPersistence.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/controller/ControllerExperimento.java
+/media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/servlet/ListarExperimentos.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/servlet/RegistrarUsuario.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/model/Usuario.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/persistences/ExperimentoPersistence.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/servlet/LogoutServlet.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/controller/ControllerUsuario.java
 /media/sidious/Windows/Users/sidious/Documents/Dev/labes/src/main/java/com/mycompany/servlet/LoginServlet.java
->>>>>>> ba6b4bd1d9712e4693e8d40433f21a1b3906d46c

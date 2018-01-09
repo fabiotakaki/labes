@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -21,12 +21,20 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                    <li><a href="#">Experimentos</a></li>
-                    <li><a href="#">Participantes</a></li>
+                <li>
+                    <a href="<%= response.encodeURL("experimentos.jsp")%>">
+                        <i class="fas fa-flask"></i>&nbsp; Experimentos
+                    </a>
+                </li>
+                <li><a href="#">
+                        <i class="fas fa-users"></i>&nbsp; Participantes
+                    </a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<%= response.encodeURL("logout.jsp") %>">Sair <i class="fas fa-sign-out-alt"></i></a>
-                    <!--<form action="<%= response.encodeURL("LogoutServlet") %>" method="post">
+                <li><%= userName%></li>
+                <li><a href="<%= response.encodeURL("logout.jsp")%>">Sair <i class="fas fa-sign-out-alt"></i></a>
+                    <!--<form action="<%= response.encodeURL("LogoutServlet")%>" method="post">
                         <input type="submit" value="Logout" >
                     </form>-->
                 </li>

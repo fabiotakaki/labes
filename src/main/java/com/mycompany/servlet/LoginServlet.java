@@ -41,18 +41,13 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        try (PrintWriter out = response.getWriter()) {
             String htmlResponse = "<html>";
             if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) ||
                     request.getParameter("senha") == null || ("").equals(request.getParameter("senha"))) {
                 htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
                 htmlResponse += "</html>";
             }
-<<<<<<< HEAD
-            if (login(request, response)) {
-                response.sendRedirect("registrarexperimento.html");
-=======
             Usuario user = login(request, response);
             if (user != null) {
                 // Cria uma sessão de usuário
@@ -64,7 +59,6 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(userName);
                 String encodeURL = response.encodeRedirectURL("home.jsp");
                 response.sendRedirect(encodeURL);
->>>>>>> ba6b4bd1d9712e4693e8d40433f21a1b3906d46c
             } else {
             	RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
             	out.println("<h2>Email ou senha inválidos!</h2>");
@@ -73,8 +67,6 @@ public class LoginServlet extends HttpServlet {
                 //htmlResponse += "</html>";
             }
             //out.println(htmlResponse);
-        } finally {
-            out.close();
         }
     }
 
@@ -116,15 +108,9 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Servlet Responsavel pelo login";
     }// </editor-fold>
-<<<<<<< HEAD
 
-    public boolean login(HttpServletRequest request, HttpServletResponse response) {
-        boolean isLogged = false;
-=======
-    
     public Usuario login(HttpServletRequest request, HttpServletResponse response) {
         Usuario user = null;
->>>>>>> ba6b4bd1d9712e4693e8d40433f21a1b3906d46c
         try {
             String email, senha;
             email = request.getParameter("email");
