@@ -101,7 +101,8 @@ public class RegistrarExperimento extends HttpServlet {
     private boolean createExperimento(HttpServletRequest request, HttpServletResponse response) {
         boolean commited = false;
         try {
-            String nome, descricao;
+            String nome;
+            String descricao;
             boolean isReplicavel;
             Calendar data_inicio;
             HttpSession session = request.getSession(false);

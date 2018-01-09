@@ -92,9 +92,9 @@ public class ListarExperimentos extends HttpServlet {
 
     protected static List<Experimento> listarExperimentos(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
-        LOGGER.log(Level.INFO, "Entrou aqui");
+        //LOGGER.log(Level.INFO, "Entrou aqui");
         String userName = (String) session.getAttribute("user");
-        LOGGER.log(Level.INFO, userName);
+        //LOGGER.log(Level.INFO, userName);
         Integer userId = ControllerUsuario.buscaUsuarioEmail(userName).getId();
         List<Experimento> listaExperimentos = ControllerExperimento.listarExperimentos(userId);
         return listaExperimentos;

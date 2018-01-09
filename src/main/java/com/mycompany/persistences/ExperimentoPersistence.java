@@ -10,6 +10,7 @@ import com.mycompany.model.Experimento;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.midi.SysexMessage;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,10 +33,10 @@ public class ExperimentoPersistence {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         boolean commited = false;
-        LOGGER.log(Level.SEVERE, "Antes do try");
         Transaction t = null;
         try {
             t = session.beginTransaction();
+            session.save(experimento);
             t.commit();
             commited = true;
         } catch (Exception e) {

@@ -12,3 +12,4 @@ com/mycompany/model/Definicao.class
 com/mycompany/servlet/RegistrarUsuario.class
 com/mycompany/persistences/ExperimentoPersistence.class
 com/mycompany/controller/ControllerUsuario.class
+com/mycompany/servlet/ListarExperimentos.class

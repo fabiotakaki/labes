@@ -26,7 +26,10 @@
                         <i class="fas fa-flask"></i>&nbsp; Experimentos
                     </a>
                 </li>
-                <li><a href="#">Participantes</a></li>
+                <li><a href="#">
+                        <i class="fas fa-users"></i>&nbsp; Participantes
+                    </a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><%= userName%></li>
