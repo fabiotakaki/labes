@@ -33,11 +33,8 @@ public class ExperimentoPersistence {
         Session session = factory.openSession();
         boolean commited = false;
         Transaction t = null;
-        List<Experimento> list = null;
         try {
             t = session.beginTransaction();
-            Query query = session.createQuery("from Experimento"); //Utiliza HQL (Diferente de SQL, mas ...)
-            list = query.list();
             t.commit();
             commited = true;
         } catch (Exception e) {
@@ -52,13 +49,14 @@ public class ExperimentoPersistence {
         return commited;
     }
 
-    public static List<Experimento> listarExperimentos() {
+    public static List<Experimento> listarExperimentos(Integer idUsuario) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        List<Experimento> listaExperimentos;
+        List<Experimento> listaExperimentos = null;
         try {
-            Query query = session.createQuery("from Experimento");
-            List resultList = query.list();
+            Query q = session.createQuery("from Experimento where criador_id= :idUsuario");
+            q.setParameter("idUsuario", idUsuario);
+            List resultList = q.list();
             listaExperimentos = (List<Experimento>) resultList;
         } catch (HibernateException e) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());

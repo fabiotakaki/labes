@@ -28,8 +28,8 @@ public class ControllerExperimento {
         return novoExperimento.saveOnDatabase();
     }
 
-    public static List<Experimento> listarExperimentos() {
-        return ExperimentoPersistence.listarExperimentos();
+    public static List<Experimento> listarExperimentos(Integer idUsuario) {
+        return ExperimentoPersistence.listarExperimentos(idUsuario);
     }
 
 }

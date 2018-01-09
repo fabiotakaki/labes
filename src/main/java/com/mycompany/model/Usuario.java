@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     @NotNull
-    private int id;
+    private Integer id;
 
     @Column(name = "userName", nullable = false, unique = true)
     private String nomeUsuario;
@@ -58,6 +58,10 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public boolean saveOnDatabase() {
         return UsuarioPersistence.save(this);
     }
@@ -68,6 +72,10 @@ public class Usuario implements Serializable {
     
     public static Usuario buscaUsuario(Integer idUsuario){
         return UsuarioPersistence.getUsuario(idUsuario);
+    }
+    
+    public static Usuario buscaUsuarioEmail(String email){
+        return UsuarioPersistence.getUsuarioEmail(email);
     }
 
 }

@@ -9,7 +9,7 @@
 <html>
     <head>
         <%@include file="base/header.jsp" %>
-        <title>QPA</title>
+        <title>QPA | Sair</title>
     </head>
     <body>
         <%
