@@ -7,31 +7,26 @@ package com.mycompany.persistences;
 
 import com.mycompany.configs.HibernateUtil;
 import com.mycompany.model.Definicao;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
  *
- * @author sidious
+ * @author Gi Benvenuto
  */
 public class DefinicaoPersistence {
-    private static final Logger LOGGER = Logger.getLogger(ExperimentoPersistence.class.getName());
-    
-    private DefinicaoPersistence(){
-        //default constructor
-    }
-    
-    public static boolean save(Definicao def){
+
+    public static boolean save(Definicao definicao) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         boolean commited = false;
         Transaction t = null;
         try {
             t = session.beginTransaction();
-            session.save(def);
+            session.save(definicao);
             t.commit();
             commited = true;
         } catch (Exception e) {
@@ -44,5 +39,5 @@ public class DefinicaoPersistence {
         }
         return commited;
     }
-    
+
 }
