@@ -6,7 +6,6 @@
 package com.mycompany.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,6 +22,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
 public class LogoutServlet extends HttpServlet {
+
     private static final Logger LOGGER = Logger.getLogger(LogoutServlet.class.getName());
 
     /**
@@ -39,21 +39,22 @@ public class LogoutServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //TODO Put this into a try-catch-finally block
         Cookie[] cookies = request.getCookies();
-        if(cookies != null){
-            for(Cookie c : cookies){
-                if(("JSESSIONID").equals(c.getName())){
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (("JSESSIONID").equals(c.getName())) {
                     LOGGER.log(Level.INFO, "JSESSIONID = {0}", c.getValue());
                     break;
                 }
+                // expira o cookie da sessão
                 c.setMaxAge(0);
                 response.addCookie(c);
             }
         }
         HttpSession session = request.getSession(false);
         LOGGER.log(Level.INFO, "USER = {0}", session.getAttribute("user"));
-        //SonarQube says its allways true: https://github.com/SonarSource/sonar-csharp/issues/588
-        if(session != null)
-            session.invalidate();
+        // SonarQube says its allways true: https://github.com/SonarSource/sonar-csharp/issues/588
+        // if(null != session)
+        session.invalidate();
         response.sendRedirect("login.jsp");
     }
 

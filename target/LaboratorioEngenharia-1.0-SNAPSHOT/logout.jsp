@@ -32,7 +32,7 @@
             <h3>Deseja realmente sair? Qualquer trabalho não salvo será perdido.</h3>
             <br>
             <form action="<%= response.encodeURL("LogoutServlet") %>" method="post">
-                <button type="submit" class="btn btn-primary">Sair</button>
+                <button type="submit" class="btn btn-lg btn-danger">Sair</button>
             </form>
             <hr>
             <%@include file="base/footer.jsp" %>
