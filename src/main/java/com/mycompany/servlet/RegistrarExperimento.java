@@ -7,6 +7,7 @@ package com.mycompany.servlet;
 
 import com.mycompany.controller.ControllerExperimento;
 import com.mycompany.controller.ControllerUsuario;
+import com.mycompany.model.Experimento;
 import com.mycompany.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,16 +48,17 @@ public class RegistrarExperimento extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String htmlResponse = "<html>";
-            if (createExperimento(request, response)) {
-                String encodeURL = response.encodeRedirectURL("home.jsp");
+            Experimento exp = createExperimento(request, response);
+            if (exp != null) {
+                String encodeURL = response.encodeRedirectURL("experimentos.jsp");
                 response.sendRedirect(encodeURL);
             } else {
-                htmlResponse += "<h2>Erro ao cadastrar o experimento, verifique o log para mais detalhes!</h2>";
-                htmlResponse += "</html>";
-                LOGGER.log(Level.SEVERE, "ERRO: [consulte banco]");
+                LOGGER.log(Level.SEVERE, "ERRO: [Erro na interação com o banco, consulte o log para mais detalhes]");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("home.jsp");
+                out.println("<h2>Email ou senha inválidos!</h2>");
+                rd.include(request, response);
             }
-            out.println(htmlResponse);
+
         }
     }
 
@@ -98,8 +101,8 @@ public class RegistrarExperimento extends HttpServlet {
         return "Servlet responsável pelo registro de novos experimentos";
     }// </editor-fold>
 
-    private boolean createExperimento(HttpServletRequest request, HttpServletResponse response) {
-        boolean commited = false;
+    private Experimento createExperimento(HttpServletRequest request, HttpServletResponse response) {
+        Experimento exp = null;
         try {
             String nome;
             String descricao;
@@ -118,11 +121,11 @@ public class RegistrarExperimento extends HttpServlet {
             Date date = sdf.parse(request.getParameter("data_inicial"));
             data_inicio = Calendar.getInstance();
             data_inicio.setTime(date);
-            commited = ControllerExperimento.createExperimento(nome, descricao, data_inicio, isReplicavel, usuario);
+            exp = ControllerExperimento.createExperimento(nome, descricao, data_inicio, isReplicavel, usuario);
         } catch (ParseException ex) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", ex.getMessage());
         }
-        return commited;
+        return exp;
     }
 
 }

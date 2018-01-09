@@ -41,8 +41,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        try (PrintWriter out = response.getWriter()) {
             String htmlResponse = "<html>";
             if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) ||
                     request.getParameter("senha") == null || ("").equals(request.getParameter("senha"))) {
@@ -68,8 +67,6 @@ public class LoginServlet extends HttpServlet {
                 //htmlResponse += "</html>";
             }
             //out.println(htmlResponse);
-        } finally {
-            out.close();
         }
     }
 
