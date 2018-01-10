@@ -31,5 +31,9 @@ public class ControllerUsuario {
     public static Usuario buscaUsuario(Integer idUsuario){
         return Usuario.buscaUsuario(idUsuario);
     }
+    
+    public static Usuario buscaUsuarioEmail(String email){
+        return Usuario.buscaUsuarioEmail(email);
+    }
 
 }
