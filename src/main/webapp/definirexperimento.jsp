@@ -38,27 +38,40 @@
         %>
         <%@include file="base/navbarlogged.jsp" %>
         <div class="container">
-            <form action="DefinirExperimento" method="POST" role="form" class="col-md-offset-2 col-md-8">
+            <form action="DefinirExperimento" method="POST" role="form" class="col-md-12">
                 <div class="form-group">
-                    <label for="objEstudo">Objeto de Estudo</label>
-                    <input type="text" class="form-control" name="nome" required>
+                    <label for="obj_Estudo">Objeto de Estudo</label>
+                    <input type="text" class="form-control" name="obj_Estudo" id="obj_Estudo">
                     <div class="form-group">
-                        <label for="objetivo">Descrição:</label>
-                        <textarea class="form-control" rows="5" name="objetivo" style="resize: none"></textarea>                         
-                        <label for="replicacao">Replicação</label>
-                        <select name="replicacao" id="replicacao" class="form-control">
-                            <option value="0">Não pode ser replicado</option>
-                            <option value="1">Pode ser replicado</option>
-                        </select>
-                        <label for="data_inicial">Data do Início do Experimento</label>
-                        <input type="date" class="form-control" name="data_inicial" id="data_inicial" required>
-                        <span class="validity"></span>
+                        <label for="objetivo">Objetivo</label>
+                        <textarea class="form-control" rows="5" name="objetivo" id="objetivo" style="resize: none"></textarea>               
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <div class="form-group">
+                        <label for="perspectiva">Perspectiva</label>
+                        <textarea class="form-control" rows="5" name="perspectiva" id="perspectiva" style="resize: none"></textarea>               
+                    </div>
+                    <div class="form-group">
+                        <label for="focoQualidade">Foco em Qualidade</label>
+                        <input type="text" class="form-control" name="focoQualidade" id="focoQualidade">               
+                    </div>
+                    <div class="form-group">
+                        <label for="contexto">Contexto</label>
+                        <textarea class="form-control" rows="5" name="contexto" id="contexto" style="resize: none"></textarea>               
+                    </div>
+                    <div class="container row form-group">
+                        <label for="editavel">Editável</label>
+                        <input type="checkbox" name="editavel" id="editavel">
+                        <br>
+                        <label for="concluido">Concluído</label>
+                        <input type="checkbox" name="concluido" id="concluido">
+                    </div>
+                    <span class="validity"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar</button>
             </form>
-            <hr>
-            <%@include file="base/footer.jsp" %>
         </div>
+        <hr>
+        <%@include file="base/footer.jsp" %>
         <%@include file="base/scripts.jsp" %>
     </body>
 </html>
