@@ -1,6 +1,6 @@
 <%-- 
-    Document   : home
-    Created on : Jan 2, 2018, 9:27:33 PM
+    Document   : definirexperimento
+    Created on : Jan 18, 2018, 5:39:26 PM
     Author     : sidious
 --%>
 
@@ -38,25 +38,23 @@
         %>
         <%@include file="base/navbarlogged.jsp" %>
         <div class="container">
-            <form action="RegistrarExperimento" method="POST" role="form" class="col-md-offset-2 col-md-8">
-                <legend>Registrar Experimento</legend>
+            <form action="DefinirExperimento" method="POST" role="form" class="col-md-offset-2 col-md-8">
                 <div class="form-group">
-                    <label for="nome">Nome do Experimento</label>
-                    <input type="text" class="form-control" name="nome" placeholder="Nome do Experimento" required>
+                    <label for="objEstudo">Objeto de Estudo</label>
+                    <input type="text" class="form-control" name="nome" required>
                     <div class="form-group">
-                        <label for="descricao">Descrição:</label>
-                        <textarea class="form-control" rows="5" name="descricao" id="descricao" style="resize: none"></textarea>                         
+                        <label for="objetivo">Descrição:</label>
+                        <textarea class="form-control" rows="5" name="objetivo" style="resize: none"></textarea>                         
+                        <label for="replicacao">Replicação</label>
+                        <select name="replicacao" id="replicacao" class="form-control">
+                            <option value="0">Não pode ser replicado</option>
+                            <option value="1">Pode ser replicado</option>
+                        </select>
+                        <label for="data_inicial">Data do Início do Experimento</label>
+                        <input type="date" class="form-control" name="data_inicial" id="data_inicial" required>
+                        <span class="validity"></span>
                     </div>
-                    <label for="replicacao">Replicação</label>
-                    <select name="replicacao" id="replicacao" class="form-control">
-                        <option value="0">Não pode ser replicado</option>
-                        <option value="1">Pode ser replicado</option>
-                    </select>
-                    <label for="data_inicial">Data do Início do Experimento</label>
-                    <input type="date" class="form-control" name="data_inicial" id="data_inicial" required>
-                    <span class="validity"></span>
-                </div>
-                <button type="submit" class="btn btn-primary">Registrar</button>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
             </form>
             <hr>
             <%@include file="base/footer.jsp" %>

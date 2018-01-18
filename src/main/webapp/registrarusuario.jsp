@@ -23,10 +23,8 @@
                 <button type="submit" class="btn btn-primary">Registrar</button>
             </form>
         </div>
-        <div class="container">
-            <hr>
-            <%@include file="base/footer.jsp" %>
-        </div>
+        <hr>
+        <%@include file="base/footer.jsp" %>
         <%@include file="base/scripts.jsp" %>
     </body>
 </html>

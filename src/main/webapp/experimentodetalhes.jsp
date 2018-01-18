@@ -50,11 +50,18 @@
                 <div class="panel-body">
                     ${experimento.descricao}
                 </div>
-            </div>
+            </div
+            <hr>
+            &nbsp;&nbsp;
+            <a class="btn btn-default" href="#">
+                <i class="fas fa-edit"></i>&nbsp; Alterar
+            </a>
+            <a class="btn btn-info" href="<%= response.encodeURL("definirexperimento.jsp")%>">
+                <i class="fas fa-wrench"></i>&nbsp; Definir
+            </a>
         </div>
         <hr>
         <%@include file="base/footer.jsp" %>
-    </div>
-    <%@include file="base/scripts.jsp" %>
-</body>
+        <%@include file="base/scripts.jsp" %>
+    </body>
 </html>

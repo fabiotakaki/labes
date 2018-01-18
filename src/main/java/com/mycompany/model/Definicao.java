@@ -22,24 +22,6 @@ import javax.persistence.OneToOne;
 @SuppressWarnings("Serial")
 @Entity
 public class Definicao implements Serializable {
-
-    public Definicao(Experimento experimento, String objEstudo, String objetivo, String perspectiva, String focoQualidade, String contexto, boolean editvel, boolean concluido) {
-        this.experimento = experimento;
-        this.objEstudo = objEstudo;
-        this.objetivo = objetivo;
-        this.perspectiva = perspectiva;
-        this.focoQualidade = focoQualidade;
-        this.contexto = contexto;
-        this.editvel = editvel;
-        this.concluido = concluido;
-    }
-
-    public Definicao() {
-    }
-
-    public boolean saveOnDatabase() {
-        return DefinicaoPersistence.save(this);
-    }
     
 
     @Id
@@ -67,7 +49,7 @@ public class Definicao implements Serializable {
     private String contexto;
 
     @Column(name = "editavel")
-    private boolean editvel;
+    private boolean editavel;
 
     @Column(name = "concluido")
     private boolean concluido;
@@ -96,12 +78,12 @@ public class Definicao implements Serializable {
         this.concluido = concluido;
     }
 
-    public boolean isEditvel() {
-        return editvel;
+    public boolean isEditavel() {
+        return editavel;
     }
 
-    public void setEditvel(boolean editvel) {
-        this.editvel = editvel;
+    public void setEditavel(boolean editavel) {
+        this.editavel = editavel;
     }
 
     public String getObjEstudo() {
@@ -144,5 +126,22 @@ public class Definicao implements Serializable {
         this.contexto = contexto;
     }
     
+    public Definicao(Experimento experimento, String objEstudo, String objetivo, String perspectiva, String focoQualidade, String contexto, boolean editavel, boolean concluido) {
+        this.experimento = experimento;
+        this.objEstudo = objEstudo;
+        this.objetivo = objetivo;
+        this.perspectiva = perspectiva;
+        this.focoQualidade = focoQualidade;
+        this.contexto = contexto;
+        this.editavel = editavel;
+        this.concluido = concluido;
+    }
+
+    public Definicao() {
+    }
+
+    public boolean saveOnDatabase() {
+        return DefinicaoPersistence.save(this);
+    }
 
 }
