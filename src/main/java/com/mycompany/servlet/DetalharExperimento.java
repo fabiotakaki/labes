@@ -5,12 +5,10 @@
  */
 package com.mycompany.servlet;
 
+import com.mycompany.model.Experimento;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author sidious
  */
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
-public class LogoutServlet extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(LogoutServlet.class.getName());
+@WebServlet(name = "DetalharExperimento", urlPatterns = {"/DetalharExperimento"})
+public class DetalharExperimento extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,25 +33,6 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //TODO Put this into a try-catch-finally block
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie c : cookies) {
-                if (("JSESSIONID").equals(c.getName())) {
-                    LOGGER.log(Level.INFO, "JSESSIONID = {0}", c.getValue());
-                    break;
-                }
-                // expira o cookie da sessão
-                c.setMaxAge(0);
-                response.addCookie(c);
-            }
-        }
-        HttpSession session = request.getSession(false);
-        LOGGER.log(Level.INFO, "USER = {0}", session.getAttribute("user"));
-        // SonarQube says its allways true: https://github.com/SonarSource/sonar-csharp/issues/588
-        // if(null != session)
-        session.invalidate();
-        response.sendRedirect("login.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,7 +47,9 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Experimento experimento = getExperimento(request, response);
+        request.setAttribute("experimento", experimento);
+        response.sendRedirect("experimentodetalhes.jsp");
     }
 
     /**
@@ -94,7 +73,13 @@ public class LogoutServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet Responsavel por realizar o logout do Usuário";
+        return "Servlet responsável por realizar a captura dos detalhes do experimento";
     }// </editor-fold>
+    
+    protected static Experimento getExperimento(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession(false);
+        Experimento experimento = (Experimento) session.getAttribute("experimento");
+        return experimento;
+    }
 
 }

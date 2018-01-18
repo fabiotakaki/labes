@@ -7,8 +7,8 @@ package com.mycompany.persistences;
 
 import com.mycompany.configs.HibernateUtil;
 import com.mycompany.model.Definicao;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,6 +18,7 @@ import org.hibernate.Transaction;
  * @author Gi Benvenuto
  */
 public class DefinicaoPersistence {
+    private static final Logger LOGGER = Logger.getLogger(DefinicaoPersistence.class.getName());
 
     public static boolean save(Definicao definicao) {
         SessionFactory factory = HibernateUtil.getSessionFactory();

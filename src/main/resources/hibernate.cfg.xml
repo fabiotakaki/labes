@@ -48,6 +48,7 @@ Contributor(s):
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.connection.password">=]P4$$w0rd</property>
     <mapping class="com.mycompany.model.Usuario"/>
     <mapping class="com.mycompany.model.Experimento"/>
     <mapping class="com.mycompany.model.Definicao"/>
