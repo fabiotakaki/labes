@@ -25,6 +25,8 @@ Para executar e utilizar o projeto é necessário:
 - Realizar o processo de Clean + Build
 - Executar o projeto (Realizar o deploy) e aguardar a abertura do sistema Web no Navegador.
 
+>Importante, pode ser necessário alterar as configurações de usuário e senha do banco de dados no arquivo `hibernate.cfg.xml`, localizado em `src/main/resources`.
+
 ## Construído com
 
 * [Netbeans IDE 8.2](https://github.com/processing/p5.js) - Biblioteca JavaScript para fácil design de elementos interativos.
