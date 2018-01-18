@@ -7,6 +7,7 @@ package com.mycompany.persistences;
 
 import com.mycompany.configs.HibernateUtil;
 import com.mycompany.model.Experimento;
+import com.mycompany.model.Usuario;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,6 +67,21 @@ public class ExperimentoPersistence {
             session.close();
         }
         return listaExperimentos;
+    }
+    
+    // Busca um exerimento pelo id
+    public static Experimento getExperimento(Integer idExperimento){
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        
+        Query q = session.createQuery("from Experimento where experimentoID = :idExperimento");
+        q.setParameter("idExperimento", idExperimento);
+        
+        List queryResult = q.list();
+        
+        if(queryResult.isEmpty())
+            return null;
+        return (Experimento) queryResult.get(0);
     }
 
 }

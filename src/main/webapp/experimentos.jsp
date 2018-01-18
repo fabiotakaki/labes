@@ -72,7 +72,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <i class="fas fa-flask"></i>&nbsp; 
-                                    <a href="<%= response.encodeURL("experimentodetalhes.jsp")%>">
+                                    <a href="<%= response.encodeURL("experimentodetalhes.jsp?experimentoId=")%>${experimento.id}">
                                         ${experimento.nome}
                                     </a>
                                 </div>

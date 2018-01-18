@@ -6,6 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<footer>
+<footer class="container">
     <p>&copy; 2017 LES Inc.</p>
 </footer>

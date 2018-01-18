@@ -29,5 +29,9 @@ public class ControllerExperimento {
     public static List<Experimento> listarExperimentos(Integer idUsuario) {
         return ExperimentoPersistence.listarExperimentos(idUsuario);
     }
+    
+    public static Experimento buscaExperimento(Integer idExperimento){
+        return Experimento.buscaExperimento(idExperimento);
+    }
 
 }

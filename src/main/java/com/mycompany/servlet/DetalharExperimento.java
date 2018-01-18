@@ -5,6 +5,7 @@
  */
 package com.mycompany.servlet;
 
+import com.mycompany.controller.ControllerExperimento;
 import com.mycompany.model.Experimento;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -77,9 +77,11 @@ public class DetalharExperimento extends HttpServlet {
     }// </editor-fold>
     
     protected static Experimento getExperimento(HttpServletRequest request, HttpServletResponse response){
-        HttpSession session = request.getSession(false);
-        Experimento experimento = (Experimento) session.getAttribute("experimento");
-        return experimento;
+        //HttpSession session = request.getSession(false);
+        //Experimento experimento = (Experimento) session.getAttribute("experimento");
+        Integer experimentoId = Integer.valueOf(request.getParameter("experimentoId"));
+        Experimento exp = ControllerExperimento.buscaExperimento(experimentoId);
+        return exp;
     }
 
 }

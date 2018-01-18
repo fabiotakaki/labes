@@ -139,5 +139,9 @@ public class Experimento implements Serializable {
             return null;
         }
     }
+    
+    public static Experimento buscaExperimento(Integer idExperimento){
+        return ExperimentoPersistence.getExperimento(idExperimento);
+    }
 
 }
