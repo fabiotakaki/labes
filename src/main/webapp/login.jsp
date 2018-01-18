@@ -14,14 +14,29 @@
     <body>
         <%@include file="base/navbar.jsp" %>
         <div class="container">
-            <form action="LoginServlet" method="POST" role="form" class="col-md-offset-5 col-md-3">
-                <legend>Acessar sistema</legend>
-                <div class="form-group">
-                    <input type="email" class="form-control" name="email" placeholder="Email" required>
-                    <input type="password" name="senha" class="form-control" placeholder="Senha" required>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <form action="LoginServlet" method="POST" role="form">
+                        <legend>Acessar sistema</legend>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                            <input type="password" name="senha" class="form-control" placeholder="Senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Acessar</button>
+                        <button type="reset" class="btn btn-default">Limpar</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Acessar</button>
-            </form>
+                <div class="col-md-6 form-group">
+                    <form action="PrimeiroAcesso" method="POST" role="form">
+                        <legend>Primeiro Acesso</legend>
+                        <div class="form-group">
+                            <input type="nome" class="form-control" name="nome" placeholder="Insira seu nome" required>
+                            <input type="email" name="email" class="form-control" placeholder="Insira seu e-mail" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Acessar</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="container">
             <hr>

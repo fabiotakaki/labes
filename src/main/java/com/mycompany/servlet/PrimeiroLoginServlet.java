@@ -46,8 +46,8 @@ public class PrimeiroLoginServlet extends HttpServlet {
                 
                 usuario = ControllerUsuario.buscaUsuario((int) session.getAttribute("id"));
                 
-                usuario.setNome(request.getParameter("nome"));
-                usuario.setEmail(request.getParameter("email"));
+                usuario.setNomeUsuario(request.getParameter("nome"));
+                //usuario.setEmail(request.getParameter("email"));
                 
                 usuario.saveOnDatabase();
                 
