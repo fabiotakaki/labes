@@ -5,29 +5,22 @@
  */
 package com.mycompany.servlet;
 
-import com.mycompany.controller.ControllerUsuario;
-import com.mycompany.model.Usuario;
+import com.mycompany.controller.ControllerExperimento;
+import com.mycompany.model.Experimento;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author sidious
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
+@WebServlet(name = "DefinirExperimento", urlPatterns = {"/DefinirExperimento"})
+public class DefinirExperimento extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,22 +35,16 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Usuario user = login(request, response);
-            if (user != null) {
-                // Cria uma sessão de usuário
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user.getNomeUsuario());
-                session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
-                // cria um cookie para o usuário
-                Cookie userName = new Cookie("user", user.getNomeUsuario());
-                response.addCookie(userName);
-                String encodeURL = response.encodeRedirectURL("home.jsp");
-                response.sendRedirect(encodeURL);
-            } else {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
-                out.println("<h2>Email ou senha inválidos!</h2>");
-                rd.include(request, response);
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DefinirExperimento</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DefinirExperimento at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -73,7 +60,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Experimento experimento = getExperimento(request, response);
+        request.setAttribute("experimento", experimento);
+        response.sendRedirect("definirexperimento.jsp");
     }
 
     /**
@@ -97,23 +86,24 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet Responsavel pelo login";
+        return "Servlet responsável pela definição de experimento";
     }// </editor-fold>
 
-    public Usuario login(HttpServletRequest request, HttpServletResponse response) {
-        Usuario user = null;
-        try {
-            String email, senha;
-            email = request.getParameter("email");
-            senha = request.getParameter("senha");
-
-            user = ControllerUsuario.login(email, senha);
-            //LOGGER.log(Level.INFO, String.valueOf(isLogged));
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
-            throw e;
-        }
-        return user;
+    protected static Experimento getExperimento(HttpServletRequest request, HttpServletResponse response){
+        //HttpSession session = request.getSession(false);
+        //Experimento experimento = (Experimento) session.getAttribute("experimento");
+        Integer experimentoId = Integer.valueOf(request.getParameter("experimentoId"));
+        Experimento exp = ControllerExperimento.buscaExperimento(experimentoId);
+        return exp;
+    }
+    
+    protected static boolean defineExperimento(HttpServletRequest request, HttpServletResponse response){
+        String objEstudo = request.getParameter("objEstudo");
+        String objetivo = request.getParameter("objetivo");
+        String perspectiva = request.getParameter("perspectiva");
+        String focoQualidade = request.getParameter("focoQualidade");
+        String contexto = request.getParameter("contexto");
+        return true;
     }
 
 }

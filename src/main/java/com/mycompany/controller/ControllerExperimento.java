@@ -5,6 +5,7 @@
  */
 package com.mycompany.controller;
 
+import com.mycompany.model.Definicao;
 import com.mycompany.model.Experimento;
 import com.mycompany.model.Usuario;
 import com.mycompany.persistences.ExperimentoPersistence;
@@ -24,6 +25,21 @@ public class ControllerExperimento {
         /*Atributos atuais de um experimento: Nome, Descricao, Concluido, Replicado*/
         Experimento novoExperimento = new Experimento(nome, descricao, false, dataInicial, isReplicavel, usuario); // Ver questão do usuario
         return novoExperimento.saveOnDatabase();
+    }
+    
+    
+    public static boolean createDefinicao(Experimento experimento, String objEstudo, 
+            String objetivo, String perspectiva, String focoQualidade, String contexto, boolean editavel) {
+
+        if (experimento != null && objEstudo != null && objetivo != null 
+                && perspectiva != null && focoQualidade != null && contexto != null) {
+            
+            Definicao novaDefinicao = new Definicao(experimento, objEstudo, objetivo, 
+                    perspectiva, focoQualidade, contexto, editavel, editavel);
+            return novaDefinicao.saveOnDatabase();
+        }
+
+        return false;
     }
 
     public static List<Experimento> listarExperimentos(Integer idUsuario) {

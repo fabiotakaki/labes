@@ -41,7 +41,7 @@
             <form action="DefinirExperimento" method="POST" role="form" class="col-md-12">
                 <div class="form-group">
                     <label for="obj_Estudo">Objeto de Estudo</label>
-                    <input type="text" class="form-control" name="obj_Estudo" id="obj_Estudo">
+                    <input type="text" class="form-control" name="objEstudo" id="obj_Estudo">
                     <div class="form-group">
                         <label for="objetivo">Objetivo</label>
                         <textarea class="form-control" rows="5" name="objetivo" id="objetivo" style="resize: none"></textarea>               
@@ -60,7 +60,7 @@
                     </div>
                     <div class="container row form-group">
                         <label for="editavel">Editável</label>
-                        <input type="checkbox" name="editavel" id="editavel">
+                        <input type= id="concluido" class="checkbox" name="editavel" id="editavel">
                         <br>
                         <label for="concluido">Concluído</label>
                         <input type="checkbox" name="concluido" id="concluido">

@@ -50,15 +50,15 @@
                 <div class="panel-body">
                     ${experimento.descricao}
                 </div>
-            </div
-            <hr>
-            &nbsp;&nbsp;
-            <a class="btn btn-default" href="#">
-                <i class="fas fa-edit"></i>&nbsp; Alterar
-            </a>
-            <a class="btn btn-info" href="<%= response.encodeURL("definirexperimento.jsp")%>">
-                <i class="fas fa-wrench"></i>&nbsp; Definir
-            </a>
+                <div class="panel-footer">
+                    <a class="btn btn-default" href="#">
+                        <i class="fas fa-edit"></i>&nbsp; Alterar
+                    </a>
+                    <a class="btn btn-info" href="<%= response.encodeURL("definirexperimento.jsp?experimentoId=")%>${experimento.id}">
+                        <i class="fas fa-wrench"></i>&nbsp; Definir
+                    </a>
+                </div>
+            </div>
         </div>
         <hr>
         <%@include file="base/footer.jsp" %>

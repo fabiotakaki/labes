@@ -42,15 +42,15 @@
         <div class="container">
             <div class="row">
                 <form class="navbar-form" role="search" method="get"
-                  action="BuscaExperimento">
-                <input type="text" class="form-control" name="q" placeholder="Busca">
-                <button type="submit" class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                </button>
-                <a class="btn btn-success btn-lg pull-right" href="<%= response.encodeURL("registrarexperimento.jsp")%>">
-                    <i class="fas fa-plus"></i>&nbsp; Adicionar Experimento
-                </a>
-            </form>
+                      action="BuscaExperimento">
+                    <input type="text" class="form-control" name="q" placeholder="Busca">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <a class="btn btn-success btn-lg pull-right" href="<%= response.encodeURL("registrarexperimento.jsp")%>">
+                        <i class="fas fa-plus"></i>&nbsp; Adicionar Experimento
+                    </a>
+                </form>
             </div>
             <br>
 
@@ -72,7 +72,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <i class="fas fa-flask"></i>&nbsp; 
-                                    <a href="<%= response.encodeURL("experimentodetalhes.jsp?experimentoId=")%>${experimento.id}">
+                                    <a href="<%= response.encodeURL("experimentodetalhes.jsp?experimentoId=")%>${experimento.id}" onclick="">                                    
                                         ${experimento.nome}
                                     </a>
                                 </div>
