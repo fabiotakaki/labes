@@ -40,34 +40,29 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String htmlResponse = "<html>";
-            if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) ||
-                    request.getParameter("senha") == null || ("").equals(request.getParameter("senha"))) {
-                htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
-                htmlResponse += "</html>";
-            }
+        
+          
+            // Cria uma sessão de usuário
+            HttpSession session = request.getSession();
             Usuario user = login(request, response);
+            //Usuario user = null;  (mock)
             if (user != null) {
-                // Cria uma sessão de usuário
-                HttpSession session = request.getSession();
+            
                 session.setAttribute("user", user.getNomeUsuario());
                 session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
+                
                 // cria um cookie para o usuário
                 Cookie userName = new Cookie("user", user.getNomeUsuario());
                 response.addCookie(userName);
                 String encodeURL = response.encodeRedirectURL("home.jsp");
                 response.sendRedirect(encodeURL);
             } else {
-            	RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
-            	out.println("<h2>Email ou senha inválidos!</h2>");
-            	rd.include(request, response);
-                //htmlResponse += "<h2>Email ou senha inválidos!</h2>";
-                //htmlResponse += "</html>";
+                session.setAttribute("loginDanger", "E-mail ou senha incorretos!");
+                String encodeURL = response.encodeRedirectURL("login.jsp");
+                response.sendRedirect(encodeURL);
+            	
             }
-            //out.println(htmlResponse);
-        }
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

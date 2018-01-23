@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "RegistrarUsuario", urlPatterns = {"/RegistrarUsuario"})
 public class RegistrarUsuario extends HttpServlet {
@@ -18,18 +19,22 @@ public class RegistrarUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String htmlResponse = "<html>";
+           //String htmlResponse = "<html>";
+            HttpSession session = request.getSession();
             if (createUsuario(request, response)) {
-                htmlResponse += "<h2>Usuário cadastrado com sucesso!</h2>";
-                htmlResponse += "</html>";
+                session.setAttribute("UsuarioSucess", "Usuario Cadastrado com Sucesso");
+                
             } else {
-                htmlResponse += "<h2>Erro ao cadastrar o usuário, verifique o log para mais detalhes!</h2>";
-                htmlResponse += "</html>";
-                LOGGER.log(Level.SEVERE, "ERRO: [consulte banco]");
+                //htmlResponse += "<h2>Erro ao cadastrar o usuário, verifique o log para mais detalhes!</h2>";
+                //htmlResponse += "</html>";
+                //LOGGER.log(Level.SEVERE, "ERRO: [consulte banco]");
+                session.setAttribute("UsuarioDanger", "Erro ao cadastrar usuário");
             }
-            out.println(htmlResponse);
+            String encodeURL = response.encodeRedirectURL("registrarusuario.jsp");
+            response.sendRedirect(encodeURL);
+            //out.println(htmlResponse);
         }
     }
 
