@@ -6,10 +6,12 @@
 package com.mycompany.servlet;
 
 import com.mycompany.controller.ControllerExperimento;
+import com.mycompany.model.Definicao;
 import com.mycompany.model.Experimento;
 import com.mycompany.model.Usuario;
 import java.io.IOException;
 import java.util.Objects;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +25,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "DetalharExperimento", urlPatterns = {"/DetalharExperimento"})
 public class DetalharExperimento extends HttpServlet {
-    
+
+    Experimento experimento = null;
     private HttpSession session = null;
 
     /**
@@ -53,10 +56,18 @@ public class DetalharExperimento extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         session = request.getSession(false);
-        Experimento experimento = getExperimento(request, response);
-        session.setAttribute("experimento", experimento);
-        //request.setAttribute("experimento", experimento);
-        response.sendRedirect("experimentodetalhes.jsp");
+        // se já existe um objeto experimento associado a sessão
+        experimento = (Experimento) session.getAttribute("experimento");
+        if (session.getAttribute("experimento") == null
+                || experimento.getId() != Integer.parseInt(request.getParameter("experimentoId"))) {
+            experimento = getExperimento(request, response);
+            session.setAttribute("experimento", experimento);
+            if (experimento.getDefinicao() == null) {
+                System.out.println("Teste");
+            }
+        }
+        String encodeURL = response.encodeRedirectURL("experimentodetalhes.jsp");
+        response.sendRedirect(encodeURL);
     }
 
     /**
@@ -82,17 +93,21 @@ public class DetalharExperimento extends HttpServlet {
     public String getServletInfo() {
         return "Servlet responsável por realizar a captura dos detalhes do experimento";
     }// </editor-fold>
-    
-    protected Experimento getExperimento(HttpServletRequest request, HttpServletResponse response){
+
+    protected Experimento getExperimento(HttpServletRequest request, HttpServletResponse response) {
         //HttpSession session = request.getSession(false);
         //Experimento experimento = (Experimento) session.getAttribute("experimento");
         Integer experimentoId = Integer.valueOf(request.getParameter("experimentoId"));
         Experimento exp = ControllerExperimento.buscaExperimento(experimentoId);
         Usuario user = (Usuario) session.getAttribute("userObj");
-        if(!Objects.equals(user.getId(), exp.getCriador().getId())){
+        if (!Objects.equals(user.getId(), exp.getCriador().getId())) {
             return null;
         }
         return exp;
+    }
+
+    protected Definicao getDefinicao(Integer idExperimento) {
+        return null;
     }
 
 }

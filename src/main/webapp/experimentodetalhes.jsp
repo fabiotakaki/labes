@@ -51,7 +51,22 @@
                     </a>
                 </div>
                 <div class="panel-body">
-                    ${experimento.descricao}
+                    <p><b>Descrição: </b>${experimento.descricao}</p>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Definições do Experimento
+                        </div>
+                        <div class="panel-body">
+                            <c:choose>
+                                <c:when test="${empty experimento.definicao}">
+                                    <p><b>Objetivo: </b>${experimento.definicao.objEstudo}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>O Experimento ainda não passou por uma definição</p>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-footer">
                     <a class="btn btn-default" href="#">

@@ -39,6 +39,7 @@
                 sessionID = session.getId();
             }
         %>
+        <jsp:include page="/DefinirExperimento" />
         <%@include file="base/navbarlogged.jsp" %>
         <div class="container">
             <form action="DefinirExperimento" method="POST" role="form" class="col-md-12">
@@ -71,6 +72,7 @@
                     <span class="validity"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">Registrar</button>
+                <button type="reset" class="btn btn-default">Limpar</button>
             </form>
         </div>
         <hr>

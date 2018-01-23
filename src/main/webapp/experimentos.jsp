@@ -23,21 +23,21 @@
             } else {
                 user = (String) session.getAttribute("user");
             }
-            String userName = null;
-            String sessionID = null;
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie c : cookies) {
-                    if (c.getName().equals("user")) {
-                        userName = c.getValue();
+                String userName = null;
+                String sessionID = null;
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                    for (Cookie c : cookies) {
+                        if (c.getName().equals("user")) {
+                            userName = c.getValue();
+                        }
+                        if (c.getName().equals("JSESSIONID")) {
+                            sessionID = c.getValue();
+                        }
                     }
-                    if (c.getName().equals("JSESSIONID")) {
-                        sessionID = c.getValue();
-                    }
+                } else {
+                    sessionID = session.getId();
                 }
-            } else {
-                sessionID = session.getId();
-            }
         %>
         <jsp:include page="/ListarExperimentos" />
         <%@include file="base/navbarlogged.jsp" %>

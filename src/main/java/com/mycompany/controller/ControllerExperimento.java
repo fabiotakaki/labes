@@ -39,7 +39,7 @@ public class ControllerExperimento {
 
         if (experimento != null && objEstudo != null && objetivo != null 
                 && perspectiva != null && focoQualidade != null && contexto != null) {
-            
+            LOGGER.log(Level.WARNING, "Scope: if Controller");
             Definicao novaDefinicao = new Definicao(experimento, objEstudo, objetivo, 
                     perspectiva, focoQualidade, contexto, editavel, editavel);
             return novaDefinicao.saveOnDatabase();
@@ -54,6 +54,10 @@ public class ControllerExperimento {
     
     public static Experimento buscaExperimento(Integer idExperimento){
         return Experimento.buscaExperimento(idExperimento);
+    }
+    
+    public static Definicao buscaDefinicao(Integer idExperimento){
+        return null;//Definicao.buscaDefinicao(idExperimento);
     }
 
 }

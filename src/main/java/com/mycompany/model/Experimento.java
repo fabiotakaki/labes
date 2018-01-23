@@ -66,6 +66,7 @@ public class Experimento implements Serializable {
         this.dataInicial = dataInicial;
         this.isReplicavel = isReplicavel;
         this.criador = usuario;
+        this.definicao = null;
     }
 
     public String getNome() {

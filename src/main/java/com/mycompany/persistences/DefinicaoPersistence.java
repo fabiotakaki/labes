@@ -7,8 +7,10 @@ package com.mycompany.persistences;
 
 import com.mycompany.configs.HibernateUtil;
 import com.mycompany.model.Definicao;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -40,6 +42,20 @@ public class DefinicaoPersistence {
             session.close();
         }
         return commited;
+    }
+    
+    public static Definicao getUsuario(Integer idExperimento){
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        
+        Query q = session.createQuery("from Definicao where experimentoID = :idExperimento");
+        q.setParameter("idExperimento", idExperimento);
+        
+        List queryResult = q.list();
+        
+        if(queryResult.isEmpty())
+            return null;
+        return (Definicao) queryResult.get(0);
     }
 
 }

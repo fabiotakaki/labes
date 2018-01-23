@@ -29,7 +29,7 @@ public class Definicao implements Serializable {
     private int idDef;
 
     @OneToOne
-    @MapsId
+    //@MapsId
     @JoinColumn(name = "experimentoID")
     private Experimento experimento;
 
@@ -144,5 +144,6 @@ public class Definicao implements Serializable {
         System.out.println("Scope: Model");
         return DefinicaoPersistence.save(this);
     }
+    
 
 }
