@@ -49,10 +49,14 @@ public class RegistrarExperimento extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Experimento exp = createExperimento(request, response);
+            HttpSession session = request.getSession();
             if (exp != null) {
+                session.setAttribute("ExperimentoSuccess", "Experimento cadastrado com sucesso!");
                 String encodeURL = response.encodeRedirectURL("experimentos.jsp");
                 response.sendRedirect(encodeURL);
             } else {
+                session.setAttribute("ExperimentoDanger", "Erro ao cadastrar experimento!");
+                
                 LOGGER.log(Level.SEVERE, "ERRO: [Erro na interação com o banco, consulte o log para mais detalhes]");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("home.jsp");
                 out.println("<h2>Email ou senha inválidos!</h2>");
