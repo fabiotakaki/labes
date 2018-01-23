@@ -7,12 +7,15 @@ package com.mycompany.servlet;
 
 import com.mycompany.controller.ControllerExperimento;
 import com.mycompany.model.Experimento;
+import com.mycompany.model.Usuario;
 import java.io.IOException;
+import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DetalharExperimento", urlPatterns = {"/DetalharExperimento"})
 public class DetalharExperimento extends HttpServlet {
+    
+    private HttpSession session = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,8 +52,10 @@ public class DetalharExperimento extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        session = request.getSession(false);
         Experimento experimento = getExperimento(request, response);
-        request.setAttribute("experimento", experimento);
+        session.setAttribute("experimento", experimento);
+        //request.setAttribute("experimento", experimento);
         response.sendRedirect("experimentodetalhes.jsp");
     }
 
@@ -76,11 +83,15 @@ public class DetalharExperimento extends HttpServlet {
         return "Servlet responsável por realizar a captura dos detalhes do experimento";
     }// </editor-fold>
     
-    protected static Experimento getExperimento(HttpServletRequest request, HttpServletResponse response){
+    protected Experimento getExperimento(HttpServletRequest request, HttpServletResponse response){
         //HttpSession session = request.getSession(false);
         //Experimento experimento = (Experimento) session.getAttribute("experimento");
         Integer experimentoId = Integer.valueOf(request.getParameter("experimentoId"));
         Experimento exp = ControllerExperimento.buscaExperimento(experimentoId);
+        Usuario user = (Usuario) session.getAttribute("userObj");
+        if(!Objects.equals(user.getId(), exp.getCriador().getId())){
+            return null;
+        }
         return exp;
     }
 

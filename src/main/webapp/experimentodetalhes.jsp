@@ -4,6 +4,7 @@
     Author     : sidious
 --%>
 
+<%@page import="com.mycompany.model.Experimento"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,10 +17,12 @@
         <%
             // Only allow autenticated users
             String user = null;
+            Experimento experimento = null;
             if (session.getAttribute("user") == null) {
                 response.sendRedirect("login.jsp");
             } else {
                 user = (String) session.getAttribute("user");
+                experimento = (Experimento) session.getAttribute("experimento");       
             }
             String userName = null;
             String sessionID = null;
@@ -54,7 +57,7 @@
                     <a class="btn btn-default" href="#">
                         <i class="fas fa-edit"></i>&nbsp; Alterar
                     </a>
-                    <a class="btn btn-info" href="<%= response.encodeURL("definirexperimento.jsp?experimentoId=")%>${experimento.id}">
+                    <a class="btn btn-info" href="<%= response.encodeURL("definirexperimento.jsp")%>">
                         <i class="fas fa-wrench"></i>&nbsp; Definir
                     </a>
                 </div>

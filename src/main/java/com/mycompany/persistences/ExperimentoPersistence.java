@@ -7,7 +7,6 @@ package com.mycompany.persistences;
 
 import com.mycompany.configs.HibernateUtil;
 import com.mycompany.model.Experimento;
-import com.mycompany.model.Usuario;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

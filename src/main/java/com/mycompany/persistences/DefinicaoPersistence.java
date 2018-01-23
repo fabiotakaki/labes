@@ -21,6 +21,7 @@ public class DefinicaoPersistence {
     private static final Logger LOGGER = Logger.getLogger(DefinicaoPersistence.class.getName());
 
     public static boolean save(Definicao definicao) {
+        LOGGER.log(Level.WARNING, "Scope: Persistence");
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         boolean commited = false;

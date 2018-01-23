@@ -141,6 +141,7 @@ public class Definicao implements Serializable {
     }
 
     public boolean saveOnDatabase() {
+        System.out.println("Scope: Model");
         return DefinicaoPersistence.save(this);
     }
 

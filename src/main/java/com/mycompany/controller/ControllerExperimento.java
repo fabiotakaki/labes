@@ -8,15 +8,19 @@ package com.mycompany.controller;
 import com.mycompany.model.Definicao;
 import com.mycompany.model.Experimento;
 import com.mycompany.model.Usuario;
+import com.mycompany.persistences.DefinicaoPersistence;
 import com.mycompany.persistences.ExperimentoPersistence;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Rogerio
  */
 public class ControllerExperimento {
+    private static final Logger LOGGER = Logger.getLogger(ControllerExperimento.class.getName());
     
     private ControllerExperimento(){
     }
@@ -30,6 +34,8 @@ public class ControllerExperimento {
     
     public static boolean createDefinicao(Experimento experimento, String objEstudo, 
             String objetivo, String perspectiva, String focoQualidade, String contexto, boolean editavel) {
+        
+        LOGGER.log(Level.WARNING, "Scope: Controller");
 
         if (experimento != null && objEstudo != null && objetivo != null 
                 && perspectiva != null && focoQualidade != null && contexto != null) {

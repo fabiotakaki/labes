@@ -4,6 +4,7 @@
     Author     : sidious
 --%>
 
+<%@page import="com.mycompany.model.Experimento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,10 +16,12 @@
         <%
             // Only allow autenticated users
             String user = null;
+            Experimento experimento = null;
             if (session.getAttribute("user") == null) {
                 response.sendRedirect("login.jsp");
             } else {
                 user = (String) session.getAttribute("user");
+                experimento = (Experimento) session.getAttribute("experimento");
             }
             String userName = null;
             String sessionID = null;

@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,7 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 public class DefinirExperimento extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(DefinirExperimento.class.getName());
-    private static Experimento experimento = null;
+    private Experimento experimento = null;
+    HttpSession session = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,9 +52,9 @@ public class DefinirExperimento extends HttpServlet {
             out.println("<h1>Servlet DefinirExperimento at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-            if(defineExperimento(request, response)){
+            if (defineExperimento(request, response)) {
                 System.out.println("true");
-            }else{
+            } else {
                 System.out.println("false");
             }
         }
@@ -70,8 +72,9 @@ public class DefinirExperimento extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        experimento = getExperimento(request, response);
-        request.setAttribute("experimento", experimento);
+        session = request.getSession(false);
+        experimento = (Experimento) session.getAttribute("experimento");
+        //request.setAttribute("experimento", experimento);
         response.sendRedirect("definirexperimento.jsp");
     }
 
@@ -99,15 +102,7 @@ public class DefinirExperimento extends HttpServlet {
         return "Servlet responsável pela definição de experimento";
     }// </editor-fold>
 
-    protected static Experimento getExperimento(HttpServletRequest request, HttpServletResponse response) {
-        //HttpSession session = request.getSession(false);
-        //Experimento experimento = (Experimento) session.getAttribute("experimento");
-        Integer experimentoId = Integer.valueOf(request.getParameter("experimentoId"));
-        Experimento exp = ControllerExperimento.buscaExperimento(experimentoId);
-        return exp;
-    }
-
-    protected static boolean defineExperimento(HttpServletRequest request, HttpServletResponse response) {
+    protected boolean defineExperimento(HttpServletRequest request, HttpServletResponse response) {
         String objEstudo = request.getParameter("objEstudo");
         String objetivo = request.getParameter("objetivo");
         String perspectiva = request.getParameter("perspectiva");

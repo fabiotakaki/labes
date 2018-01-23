@@ -47,6 +47,8 @@ public class LoginServlet extends HttpServlet {
                 // Cria uma sessão de usuário
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user.getNomeUsuario());
+                session.setAttribute("userObj", user);
+                LOGGER.log(Level.WARNING, session.getAttribute("userObj").toString());
                 session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
                 // cria um cookie para o usuário
                 Cookie userName = new Cookie("user", user.getNomeUsuario());

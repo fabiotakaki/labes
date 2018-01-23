@@ -4,6 +4,7 @@
     Author     : sidious
 --%>
 
+<%@page import="com.mycompany.model.Experimento"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,6 +17,7 @@
         <%
             // Only allow autenticated users
             String user = null;
+            Experimento experimento = null;
             if (session.getAttribute("user") == null) {
                 response.sendRedirect("login.jsp");
             } else {
