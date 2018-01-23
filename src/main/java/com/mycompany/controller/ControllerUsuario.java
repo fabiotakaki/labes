@@ -21,7 +21,7 @@ public class ControllerUsuario {
     private static final Pattern padraoEmail = Pattern.compile(exEmail, Pattern.CASE_INSENSITIVE);
     
     private static final String exSenha = "^(?U)[^\\W_]*$";
-    private static final Pattern padraoSenha = Pattern.compile(exEmail);
+    private static final Pattern padraoSenha = Pattern.compile(exSenha);
 
     private ControllerUsuario(){
     }
@@ -34,7 +34,7 @@ public class ControllerUsuario {
             return false;
         }
         else if((email.length() > 25 || email.length() <=0) 
-                || (senha.length() > 20 || senha.length() <= 8)){
+                || (senha.length() > 20 || senha.length() < 8)){
             return false;
         }
         else if(!matcherEmail.matches() || !matcherSenha.matches()){
@@ -52,8 +52,8 @@ public class ControllerUsuario {
         if(email == null || senha == null){
             return null;
         }
-        else if((email.length() > 25 || email.length() <=0) 
-                || (senha.length() > 20 || senha.length() <= 8)){
+        else if((email.length() > 25 || email.length() < 0) 
+                || (senha.length() > 20 || senha.length() < 8)){
             return null;
         }
         else if(!matcherEmail.matches() || !matcherSenha.matches()){
