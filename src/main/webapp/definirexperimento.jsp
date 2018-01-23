@@ -60,10 +60,10 @@
                     </div>
                     <div class="container row form-group">
                         <label for="editavel">Editável</label>
-                        <input type= id="concluido" class="checkbox" name="editavel" id="editavel">
+                        <input type="checkbox" name="editavel" id="editavel" value="editavel">
                         <br>
                         <label for="concluido">Concluído</label>
-                        <input type="checkbox" name="concluido" id="concluido">
+                        <input type="checkbox" name="concluido" id="concluido" value="concluido">
                     </div>
                     <span class="validity"></span>
                 </div>
