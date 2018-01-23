@@ -33,6 +33,20 @@
             }
         %>
         <%@include file="base/navbarlogged.jsp" %>
+        <%String divMensagem = "";%>
+            <%  if(session.getAttribute("ExperimentoSucess") != null){ 
+            divMensagem = "<div class=\" alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Experimento cadastrado com sucesso!</strong></div>";
+            session.removeAttribute("ExperimentoSucess");
+        }            
+            if(session.getAttribute("ExperimentoDanger") != null){
+                divMensagem = "<div class=\" alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Erro ao cadastrar experimento!</strong></div>";
+                session.removeAttribute("ExperimentoDanger");
+            }
+        System.out.println(divMensagem);
+        %>
+        <div class="row container col-md-3 col-md-offset-5">
+           <%= divMensagem %></div>
+        </div>
         <div class="container">
             <form action="RegistrarExperimento" method="POST" role="form" class="col-md-offset-2 col-md-8">
             <legend>Registrar Experimento</legend>
@@ -53,7 +67,7 @@
                 <span class="validity"></span>
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>
+        </form> 
         </div>
         <div class="container">
             <hr>
