@@ -5,16 +5,18 @@
  */
 package com.mycompany.servlet;
 
+import com.mycompany.controller.ControllerExperimento;
 import com.mycompany.controller.ControllerUsuario;
-import com.mycompany.model.Usuario;
+import com.mycompany.model.Experimento;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +26,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author sidious
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ListarExperimentos", urlPatterns = {"/ListarExperimentos"})
+public class ListarExperimentos extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ListarExperimentos.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,33 +43,6 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String htmlResponse = "<html>";
-            if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) ||
-                    request.getParameter("senha") == null || ("").equals(request.getParameter("senha"))) {
-                htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
-                htmlResponse += "</html>";
-            }
-            Usuario user = login(request, response);
-            if (user != null) {
-                // Cria uma sessão de usuário
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user.getNomeUsuario());
-                session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
-                // cria um cookie para o usuário
-                Cookie userName = new Cookie("user", user.getNomeUsuario());
-                response.addCookie(userName);
-                String encodeURL = response.encodeRedirectURL("home.jsp");
-                response.sendRedirect(encodeURL);
-            } else {
-            	RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
-            	out.println("<h2>Email ou senha inválidos!</h2>");
-            	rd.include(request, response);
-                //htmlResponse += "<h2>Email ou senha inválidos!</h2>";
-                //htmlResponse += "</html>";
-            }
-            //out.println(htmlResponse);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,7 +57,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        List<Experimento> experimentos = listarExperimentos(request, response);
+
+        //Iterator iter = experimentos.iterator();
+        //LOGGER.log(Level.SEVERE, "Experimento 1: {0}", String.valueOf(iter.next()));
+        request.setAttribute("experimentos", experimentos);
+
+        response.sendRedirect("experimentos.jsp");
     }
 
     /**
@@ -106,23 +87,16 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet Responsavel pelo login";
+        return "Servlet responsável por listar os experimentos do usuário";
     }// </editor-fold>
 
-    public Usuario login(HttpServletRequest request, HttpServletResponse response) {
-        Usuario user = null;
-        try {
-            String email, senha;
-            email = request.getParameter("email");
-            senha = request.getParameter("senha");
-
-            user = ControllerUsuario.login(email, senha);
-            //LOGGER.log(Level.INFO, String.valueOf(isLogged));
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
-            throw e;
-        }
-        return user;
+    protected static List<Experimento> listarExperimentos(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        //LOGGER.log(Level.INFO, "Entrou aqui");
+        String userName = (String) session.getAttribute("user");
+        //LOGGER.log(Level.INFO, userName);
+        Integer userId = ControllerUsuario.buscaUsuarioEmail(userName).getId();
+        List<Experimento> listaExperimentos = ControllerExperimento.listarExperimentos(userId);
+        return listaExperimentos;
     }
-
 }

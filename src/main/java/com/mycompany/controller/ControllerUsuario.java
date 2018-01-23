@@ -23,13 +23,17 @@ public class ControllerUsuario {
         return novoUsuario.saveOnDatabase();
     }
 
-    public static boolean login(String email, String senha) {
+    public static Usuario login(String email, String senha) {
         usuario = Usuario.login(email, senha);
-        return usuario != null;
+        return usuario;
     }
     
     public static Usuario buscaUsuario(Integer idUsuario){
         return Usuario.buscaUsuario(idUsuario);
+    }
+    
+    public static Usuario buscaUsuarioEmail(String email){
+        return Usuario.buscaUsuarioEmail(email);
     }
 
 }

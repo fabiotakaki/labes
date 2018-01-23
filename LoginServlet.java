@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String htmlResponse = "<html>";
@@ -53,12 +53,21 @@ public class LoginServlet extends HttpServlet {
                 // Cria uma sessão de usuário
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user.getNomeUsuario());
+                session.setAttribute("id", user.getId());
                 session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
                 // cria um cookie para o usuário
                 Cookie userName = new Cookie("user", user.getNomeUsuario());
                 response.addCookie(userName);
-                String encodeURL = response.encodeRedirectURL("home.jsp");
-                response.sendRedirect(encodeURL);
+                if(isFirstLogin(request, response)){
+                    String encodeURL = response.encodeRedirectURL("primeirologin.jsp");
+                    response.sendRedirect(encodeURL);
+                   
+                }
+                else{
+                  String encodeURL = response.encodeRedirectURL("home.jsp");
+                  response.sendRedirect(encodeURL);  
+                }
+                
             } else {
             	RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
             	out.println("<h2>Email ou senha inválidos!</h2>");
@@ -82,7 +91,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -96,7 +109,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -109,20 +126,44 @@ public class LoginServlet extends HttpServlet {
         return "Servlet Responsavel pelo login";
     }// </editor-fold>
 
-    public Usuario login(HttpServletRequest request, HttpServletResponse response) {
+    public Usuario login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Usuario user = null;
         try {
             String email, senha;
             email = request.getParameter("email");
             senha = request.getParameter("senha");
-
+            
             user = ControllerUsuario.login(email, senha);
+            
             //LOGGER.log(Level.INFO, String.valueOf(isLogged));
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
             throw e;
         }
         return user;
+    }
+    
+    public boolean isFirstLogin(HttpServletRequest request, HttpServletResponse response){
+        boolean isFirst = false;
+        
+        try{
+            
+            Usuario usuario;
+            String email, senha;
+            email = request.getParameter("email");
+            senha = request.getParameter("senha");
+            usuario =  ControllerUsuario.login(email, senha);
+            if(usuario.getNome().equals("") || usuario.getEmail().equals("")){
+               isFirst = true;
+            }else{
+                isFirst = false;
+            }
+            
+            
+        }catch (Exception e){
+            LOGGER.log(Level.SEVERE, "ERRO: Login", e.getMessage());
+        }
+        return isFirst;
     }
 
 }

@@ -33,6 +33,12 @@ public class Usuario implements Serializable {
     @Column(name = "senha", nullable = false, unique = false)
     private String senha;
 
+    @Column(name = "nome", nullable = true, unique = false)
+    private String nome;
+    
+    @Column(name = "email", nullable =  true, unique = false)
+    private String email;
+    
     public Usuario(String nomeUsuario, String senha) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
@@ -60,6 +66,26 @@ public class Usuario implements Serializable {
 
     public Integer getId() {
         return id;
+    }
+    
+    public void setId(Integer id){
+        this.id = id;
+    }
+    
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public boolean saveOnDatabase() {

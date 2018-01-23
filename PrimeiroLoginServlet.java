@@ -9,12 +9,9 @@ import com.mycompany.controller.ControllerUsuario;
 import com.mycompany.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +19,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author sidious
+ * @author ejcomp
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
+@WebServlet(name = "PrimeiroLoginServlet", urlPatterns = {"/PrimeiroLoginServlet"})
+public class PrimeiroLoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,31 +37,28 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String htmlResponse = "<html>";
-            if (request.getParameter("email") == null || ("").equals(request.getParameter("email")) ||
-                    request.getParameter("senha") == null || ("").equals(request.getParameter("senha"))) {
-                htmlResponse += "<h2>É necessário preencher todos os campos!</h2>";
-                htmlResponse += "</html>";
-            }
-            Usuario user = login(request, response);
-            if (user != null) {
-                // Cria uma sessão de usuário
+            if(!request.getParameter("email").equals("") && !request.getParameter("nome").equals("")){
+                Usuario usuario = new Usuario();
+               
+                
                 HttpSession session = request.getSession();
-                session.setAttribute("user", user.getNomeUsuario());
-                session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
-                // cria um cookie para o usuário
-                Cookie userName = new Cookie("user", user.getNomeUsuario());
-                response.addCookie(userName);
+               
+                
+                usuario = ControllerUsuario.buscaUsuario((int) session.getAttribute("id"));
+                
+                usuario.setNome(request.getParameter("nome"));
+                usuario.setEmail(request.getParameter("email"));
+                
+                usuario.saveOnDatabase();
+                
                 String encodeURL = response.encodeRedirectURL("home.jsp");
                 response.sendRedirect(encodeURL);
-            } else {
-            	RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
-            	out.println("<h2>Email ou senha inválidos!</h2>");
-            	rd.include(request, response);
-                //htmlResponse += "<h2>Email ou senha inválidos!</h2>";
-                //htmlResponse += "</html>";
             }
-            //out.println(htmlResponse);
+            else{
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
+            	out.println("<h2>Insira seu e-mail e  nome!</h2>");
+            	rd.include(request, response);
+            }
         }
     }
 
@@ -106,23 +98,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet Responsavel pelo login";
+        return "Short description";
     }// </editor-fold>
-
-    public Usuario login(HttpServletRequest request, HttpServletResponse response) {
-        Usuario user = null;
-        try {
-            String email, senha;
-            email = request.getParameter("email");
-            senha = request.getParameter("senha");
-
-            user = ControllerUsuario.login(email, senha);
-            //LOGGER.log(Level.INFO, String.valueOf(isLogged));
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
-            throw e;
-        }
-        return user;
-    }
 
 }

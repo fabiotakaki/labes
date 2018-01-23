@@ -1,5 +1,5 @@
 projectKey=QPA
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/QPA
-ceTaskId=AWBxDCWHYQPi_vCZFmXz
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWBxDCWHYQPi_vCZFmXz
+ceTaskId=AWC5pJeFzEvSgX4c9DEb
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWC5pJeFzEvSgX4c9DEb
