@@ -5,11 +5,12 @@
  */
 package com.mycompany.servlet;
 
-import com.mycompany.controller.ControllerUsuario;
-import com.mycompany.model.Usuario;
+import com.mycompany.controller.ControllerExperimento;
+import com.mycompany.model.Experimento;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +20,14 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ejcomp
+ * @author sidious
  */
-@WebServlet(name = "PrimeiroLoginServlet", urlPatterns = {"/PrimeiroLoginServlet"})
-public class PrimeiroLoginServlet extends HttpServlet {
+@WebServlet(name = "DefinirExperimento", urlPatterns = {"/DefinirExperimento"})
+public class DefinirExperimento extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(DefinirExperimento.class.getName());
+    private Experimento experimento = null;
+    HttpSession session = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,27 +42,10 @@ public class PrimeiroLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if(!request.getParameter("email").equals("") && !request.getParameter("nome").equals("")){
-                Usuario usuario = new Usuario();
-               
-                
-                HttpSession session = request.getSession();
-               
-                
-                usuario = ControllerUsuario.buscaUsuario((int) session.getAttribute("id"));
-                
-                usuario.setNome(request.getParameter("nome"));
-                usuario.setEmail(request.getParameter("email"));
-                
-                usuario.saveOnDatabase();
-                
-                String encodeURL = response.encodeRedirectURL("home.jsp");
-                response.sendRedirect(encodeURL);
-            }
-            else{
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
-            	out.println("<h2>Insira seu e-mail e  nome!</h2>");
-            	rd.include(request, response);
+            if (defineExperimento(request, response)) {
+                System.out.println("true");
+            } else {
+                System.out.println("false");
             }
         }
     }
@@ -74,7 +62,10 @@ public class PrimeiroLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        session = request.getSession(false);
+        experimento = (Experimento) session.getAttribute("experimento");
+        //request.setAttribute("experimento", experimento);
+        response.sendRedirect("definirexperimento.jsp");
     }
 
     /**
@@ -98,7 +89,21 @@ public class PrimeiroLoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet responsável pela definição de experimento";
     }// </editor-fold>
+
+    protected boolean defineExperimento(HttpServletRequest request, HttpServletResponse response) {
+        String objEstudo = request.getParameter("objEstudo");
+        String objetivo = request.getParameter("objetivo");
+        String perspectiva = request.getParameter("perspectiva");
+        String focoQualidade = request.getParameter("focoQualidade");
+        String contexto = request.getParameter("contexto");
+        boolean editavel = request.getParameterValues("editavel") != null;
+        boolean concluido = request.getParameterValues("concluido") != null;
+        LOGGER.log(Level.INFO,
+                "REQUEST:\n[objEstudo]: {0}\n[objetivo]: {1}\n[perspectiva]: {2}\n[focoQualidade]: {3}\n[contexto]: {4}\n[editavel]: {5}\n[concluido]: {6}",
+                new Object[]{objEstudo, objetivo, perspectiva, focoQualidade, contexto, editavel, concluido});
+        return ControllerExperimento.createDefinicao(experimento, objEstudo, objetivo, perspectiva, focoQualidade, contexto, editavel);
+    }
 
 }

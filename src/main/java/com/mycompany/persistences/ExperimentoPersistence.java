@@ -67,5 +67,20 @@ public class ExperimentoPersistence {
         }
         return listaExperimentos;
     }
+    
+    // Busca um exerimento pelo id
+    public static Experimento getExperimento(Integer idExperimento){
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        
+        Query q = session.createQuery("from Experimento where experimentoID = :idExperimento");
+        q.setParameter("idExperimento", idExperimento);
+        
+        List queryResult = q.list();
+        
+        if(queryResult.isEmpty())
+            return null;
+        return (Experimento) queryResult.get(0);
+    }
 
 }
