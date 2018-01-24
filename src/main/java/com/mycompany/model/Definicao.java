@@ -29,7 +29,7 @@ public class Definicao implements Serializable {
     private int idDef = 0;
 
     @OneToOne
-    //@MapsId
+    @MapsId
     @JoinColumn(name = "experimentoID")
     private Experimento experimento;
 
