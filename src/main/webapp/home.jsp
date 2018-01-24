@@ -54,7 +54,6 @@
                     <h2>Características</h2>
                     <p>lorem ipsum</p>
                 </div>
-                <h3>Bem vindo <%= userName %>, você foi autenticado com sucesso.</h3>
             </div>
             <hr>
             <%@include file="base/footer.jsp" %>

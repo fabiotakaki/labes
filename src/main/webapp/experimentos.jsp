@@ -4,6 +4,7 @@
     Author     : sidious
 --%>
 
+<%@page import="com.mycompany.model.Experimento"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,41 +17,42 @@
         <%
             // Only allow autenticated users
             String user = null;
+            Experimento experimento = null;
             if (session.getAttribute("user") == null) {
                 response.sendRedirect("login.jsp");
             } else {
                 user = (String) session.getAttribute("user");
             }
-            String userName = null;
-            String sessionID = null;
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie c : cookies) {
-                    if (c.getName().equals("user")) {
-                        userName = c.getValue();
+                String userName = null;
+                String sessionID = null;
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                    for (Cookie c : cookies) {
+                        if (c.getName().equals("user")) {
+                            userName = c.getValue();
+                        }
+                        if (c.getName().equals("JSESSIONID")) {
+                            sessionID = c.getValue();
+                        }
                     }
-                    if (c.getName().equals("JSESSIONID")) {
-                        sessionID = c.getValue();
-                    }
+                } else {
+                    sessionID = session.getId();
                 }
-            } else {
-                sessionID = session.getId();
-            }
         %>
         <jsp:include page="/ListarExperimentos" />
         <%@include file="base/navbarlogged.jsp" %>
         <div class="container">
             <div class="row">
                 <form class="navbar-form" role="search" method="get"
-                  action="BuscaExperimento">
-                <input type="text" class="form-control" name="q" placeholder="Busca">
-                <button type="submit" class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                </button>
-                <a class="btn btn-success btn-lg pull-right" href="<%= response.encodeURL("registrarexperimento.jsp")%>">
-                    <i class="fas fa-plus"></i>&nbsp; Adicionar Experimento
-                </a>
-            </form>
+                      action="BuscaExperimento">
+                    <input type="text" class="form-control" name="q" placeholder="Busca">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <a class="btn btn-success btn-lg pull-right" href="<%= response.encodeURL("registrarexperimento.jsp")%>">
+                        <i class="fas fa-plus"></i>&nbsp; Adicionar Experimento
+                    </a>
+                </form>
             </div>
             <br>
 
@@ -72,7 +74,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <i class="fas fa-flask"></i>&nbsp; 
-                                    <a href="<%= response.encodeURL("experimentodetalhes.jsp")%>">
+                                    <a href="<%= response.encodeURL("experimentodetalhes.jsp?experimentoId=")%>${experimento.id}" onclick="">                                    
                                         ${experimento.nome}
                                     </a>
                                 </div>
