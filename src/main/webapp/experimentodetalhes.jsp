@@ -4,6 +4,7 @@
     Author     : sidious
 --%>
 
+<%@page import="com.mycompany.model.Experimento"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,10 +17,12 @@
         <%
             // Only allow autenticated users
             String user = null;
+            Experimento experimento = null;
             if (session.getAttribute("user") == null) {
                 response.sendRedirect("login.jsp");
             } else {
                 user = (String) session.getAttribute("user");
+                experimento = (Experimento) session.getAttribute("experimento");       
             }
             String userName = null;
             String sessionID = null;
@@ -48,13 +51,35 @@
                     </a>
                 </div>
                 <div class="panel-body">
-                    ${experimento.descricao}
+                    <p><b>Descrição: </b>${experimento.descricao}</p>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Definições do Experimento
+                        </div>
+                        <div class="panel-body">
+                            <c:choose>
+                                <c:when test="${empty experimento.definicao}">
+                                    <p><b>Objetivo: </b>${experimento.definicao.objEstudo}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>O Experimento ainda não passou por uma definição</p>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a class="btn btn-default" href="#">
+                        <i class="fas fa-edit"></i>&nbsp; Alterar
+                    </a>
+                    <a class="btn btn-info" href="<%= response.encodeURL("definirexperimento.jsp")%>">
+                        <i class="fas fa-wrench"></i>&nbsp; Definir
+                    </a>
                 </div>
             </div>
         </div>
         <hr>
         <%@include file="base/footer.jsp" %>
-    </div>
-    <%@include file="base/scripts.jsp" %>
-</body>
+        <%@include file="base/scripts.jsp" %>
+    </body>
 </html>
