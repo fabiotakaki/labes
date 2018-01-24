@@ -5,6 +5,7 @@
  */
 package Usuario;
 
+import com.mycompany.controller.ControllerUsuario;
 import com.mycompany.model.Usuario;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,6 +23,8 @@ public class LogarUsuario {
     public LogarUsuario() {
     }
     
+    Usuario usuario;
+    
     @BeforeClass
     public static void setUpClass() {
     }
@@ -32,29 +35,43 @@ public class LogarUsuario {
     
     @Before
     public void setUp() {
+        
+        usuario = ControllerUsuario.buscaUsuario(1);
+        
+        if(usuario == null){
+           usuario = new Usuario("UsuarioTeste@teste.com","12346578");
+           usuario.saveOnDatabase();
+        }
     }
     
     @After
     public void tearDown() {
     }
 
-    //Usuário em braco já existente
+    //Testar logar um usuário nulo
     @Test
     public void logarUsuarioVazio() {
-        
-       assertNotNull(Usuario.login(null, null)); 
+       assertNotNull(ControllerUsuario.login(null, null)); 
     }
     
-    //Usuário em braco já existente
+    //Testar logar usuario com espaços em branco
     @Test
     public void logarUsuarioEspacoBranco() {
         
-       assertNotNull(Usuario.login(" ", " "));
+       assertNotNull(ControllerUsuario.login("", ""));
     }
     
+    //Testar um usuário inexistente
     @Test
     public void logarUsuarioInexistente() {
         
-       assertNotNull(Usuario.login("Rogerio.garcia@fct.com.br","labes"));
+       assertNotNull(ControllerUsuario.login("Rogerio.garcia@fct.com.br","labes"));
+    }
+    
+    //Testar um suário existente
+    @Test
+    public void logarUsuarioExistente() {
+        
+       assertNotNull(ControllerUsuario.login("UsuarioTeste@teste.com","12346578"));
     }
 }
