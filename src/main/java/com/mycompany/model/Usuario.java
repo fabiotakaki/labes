@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     @NotNull
-    private Integer id;
+    private Integer id = 0;
 
     @Column(name = "userName", nullable = false, unique = true)
     private String nomeUsuario;
