@@ -6,6 +6,7 @@
 package com.mycompany.controller;
 
 import com.mycompany.model.Usuario;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

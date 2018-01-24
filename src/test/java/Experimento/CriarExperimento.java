@@ -43,7 +43,7 @@ public class CriarExperimento {
         usuario = ControllerUsuario.buscaUsuario(1);
         
         if(usuario == null){
-           usuario = new Usuario("UsuarioTeste@teste.com","123");
+           usuario = new Usuario("UsuarioTeste@teste.com","12346578");
            usuario.saveOnDatabase();
         }
     }
@@ -58,22 +58,32 @@ public class CriarExperimento {
     }
     
     @Test
-    public void verificarNomeDescricaoNuloExperimento() {
+    public void verificaCamposNulosExperimento() {
         assertNotNull(ControllerExperimento.createExperimento(null,null,null,true,null)); 
     }
     
     @Test
     public void verificarNomeNuloExperimento() {
-        assertNotNull(ControllerExperimento.createExperimento(null,"descricao",null,true,null)); 
+        assertNotNull(ControllerExperimento.createExperimento(null,"Descricao",calendario, false, usuario)); 
     }
     
     @Test
     public void verificarNomeNaoNuloExperimento() {
-        assertNotNull(ControllerExperimento.createExperimento("nome",null,null,true,null)); 
+        assertNotNull(ControllerExperimento.createExperimento("Nome",null,null,false,null)); 
+    }
+    
+     @Test
+    public void verificarDescricaoNuloExperimento() {
+        assertNotNull(ControllerExperimento.createExperimento("Nome",null,calendario, false, usuario)); 
+    }
+    
+    @Test
+    public void verificarDescricaoNaoNuloExperimento() {
+        assertNotNull(ControllerExperimento.createExperimento(null,"Descricao",null,false,null)); 
     }
     
     @Test
     public void verificarExperimentoFuncional() {
-        assertNotNull(ControllerExperimento.createExperimento("nome", "descricao", calendario, false, usuario)); 
+        assertNotNull(ControllerExperimento.createExperimento("Nome", "Descricao", calendario, false, usuario)); 
     }
 }

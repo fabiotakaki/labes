@@ -40,15 +40,15 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
+
         
           
             // Cria uma sessão de usuário
             HttpSession session = request.getSession();
-=======
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
->>>>>>> 97c9488edf35c1edc124b1cc40092186ea014613
+
             Usuario user = login(request, response);
             //Usuario user = null;  (mock)
             if (user != null) {
@@ -64,21 +64,21 @@ public class LoginServlet extends HttpServlet {
                 String encodeURL = response.encodeRedirectURL("home.jsp");
                 response.sendRedirect(encodeURL);
             } else {
-<<<<<<< HEAD
+
                 session.setAttribute("loginDanger", "E-mail ou senha incorretos!");
                 String encodeURL = response.encodeRedirectURL("login.jsp");
                 response.sendRedirect(encodeURL);
             	
             }
             
-=======
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
-                out.println("<h2>Email ou senha inválidos!</h2>");
-                rd.include(request, response);
+//
+//                RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
+//                out.println("<h2>Email ou senha inválidos!</h2>");
+//                rd.include(request, response);
             }
         }
->>>>>>> 97c9488edf35c1edc124b1cc40092186ea014613
-    }
+
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -94,6 +94,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.

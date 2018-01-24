@@ -26,7 +26,7 @@ public class Definicao implements Serializable {
 
     @Id
     @GeneratedValue
-    private int idDef;
+    private int idDef = 0;
 
     @OneToOne
     //@MapsId

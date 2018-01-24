@@ -6,10 +6,12 @@
 package Definicao;
 
 import com.mycompany.controller.ControllerDefinicao;
+import com.mycompany.controller.ControllerExperimento;
 import com.mycompany.controller.ControllerUsuario;
 import com.mycompany.model.Experimento;
 import com.mycompany.model.Usuario;
 import java.util.Calendar;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,11 +46,17 @@ public class CriarDefinicao {
         usuario = ControllerUsuario.buscaUsuario(1);
         
         if(usuario == null){
-           usuario = new Usuario("UsuarioTeste@teste.com","123");
+           usuario = new Usuario("UsuarioTeste@teste.com","123456789");
            usuario.saveOnDatabase();
         }
-        
-        experimento = new Experimento("teste", "teste", false, calendario, false, usuario);
+        if(ControllerExperimento.listarExperimentos(1) == null){
+            experimento = new Experimento("Testeum", "Testeum", false, calendario, false, usuario);
+            experimento.saveOnDatabase();         
+        }    
+        else{
+            List<Experimento> experimentos = ControllerExperimento.listarExperimentos(1);
+            experimento = experimentos.get(0);
+        }
     }
     
     @After
@@ -66,7 +74,7 @@ public class CriarDefinicao {
     @Test
     public void verificarDefinicaoFuncional() {
         
-        assertTrue(ControllerDefinicao.createDefinicao(experimento,"objEstudo","objetivo","perspectiva","focoQualidade","contexto",false)); 
+        assertTrue(ControllerDefinicao.createDefinicao(experimento,"ObjEstudo","Objetivo","Perspectiva","FocoQualidade","Contexto",false)); 
     }
     
     //Testando campo com objeto experimento nulo

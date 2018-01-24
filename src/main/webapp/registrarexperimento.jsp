@@ -70,15 +70,7 @@
                     <input type="date" class="form-control" name="data_inicial" id="data_inicial" required>
                     <span class="validity"></span>
                 </div>
-                <label for="replicacao">Replicação</label>
-                <select name="replicacao" id="replicacao" class="form-control">
-                    <option value="0">Não pode ser replicado</option>
-                    <option value="1">Pode ser replicado</option>
-                </select>
-                <label for="data_inicial">Data do Início do Experimento</label>
-                <input type="date" class="form-control" name="data_inicial" id="data_inicial" required>
-                <span class="validity"></span>
-            </div>
+                
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
         </div>
