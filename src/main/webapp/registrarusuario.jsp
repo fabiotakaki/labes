@@ -15,10 +15,10 @@
     <body>
         <%@include file="base/navbar.jsp" %>
         <%String divMensagem = "";%>
-            <%  if(session.getAttribute("UsuarioSuccess") != null){ 
+            <%  if(session.getAttribute("UsuarioSuccess") != null){
             divMensagem = "<div class=\" alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Usuário cadastrado com sucesso!</strong></div>";
             session.removeAttribute("UsuarioSucess");
-        }            
+        }
             if(session.getAttribute("UsuarioDanger") != null){
                 divMensagem = "<div class=\" alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Erro ao cadastrar usuário!</strong></div>";
                 session.removeAttribute("UsuarioDanger");
@@ -44,7 +44,7 @@
                 <button onclick="validarSenhaSubmit()" class="btn btn-primary">Registrar</button>
             </form>
         </div>
-        
+
         <div class="container">
             <hr>
             <%@include file="base/footer.jsp" %>

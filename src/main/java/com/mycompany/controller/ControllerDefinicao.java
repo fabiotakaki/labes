@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * @author paulo
  */
 public class ControllerDefinicao {
-    private static final String exDefinicao = "[A-Z]([a-z]|[A-Z]|[0-9]|[\\s])*";
+    private static final String exDefinicao = "([a-z]|[A-Z]|[0-9])([a-z]|[A-Z]|[0-9]|[\\s])*";
     //Mesma regra aplicada para todas as strings
     private static final Pattern padraoDefinicao = Pattern.compile(exDefinicao);
     
