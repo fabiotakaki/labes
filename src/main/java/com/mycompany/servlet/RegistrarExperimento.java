@@ -115,8 +115,6 @@ public class RegistrarExperimento extends HttpServlet {
             Calendar data_inicio;
             session = request.getSession(false);
             Usuario user = (Usuario) session.getAttribute("userObj");
-            //LOGGER.log(Level.INFO, userName);
-            //Usuario usuario = ControllerUsuario.buscaUsuarioEmail(userName);
             nome = request.getParameter("nome");
             descricao = request.getParameter("descricao");
             isReplicavel = request.getParameter("replicacao").equals("0");
