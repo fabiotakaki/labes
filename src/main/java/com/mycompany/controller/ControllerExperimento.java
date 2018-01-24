@@ -10,8 +10,10 @@ import com.mycompany.model.Experimento;
 import com.mycompany.model.Usuario;
 import com.mycompany.persistences.DefinicaoPersistence;
 import com.mycompany.persistences.ExperimentoPersistence;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
