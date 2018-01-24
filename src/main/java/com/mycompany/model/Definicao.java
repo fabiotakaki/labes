@@ -26,10 +26,11 @@ public class Definicao implements Serializable {
 
     @Id
     @GeneratedValue
-    private int idDef = 0;
+    @Column(name = "idDefinicao")
+    private Integer idDef = 0;
 
     @OneToOne
-    //@MapsId
+    @MapsId
     @JoinColumn(name = "experimentoID")
     private Experimento experimento;
 
@@ -54,11 +55,11 @@ public class Definicao implements Serializable {
     @Column(name = "concluido")
     private boolean concluido;
 
-    public int getIdDef() {
+    public Integer getIdDef() {
         return idDef;
     }
 
-    public void setIdDef(int idDef) {
+    public void setIdDef(Integer idDef) {
         this.idDef = idDef;
     }
 
