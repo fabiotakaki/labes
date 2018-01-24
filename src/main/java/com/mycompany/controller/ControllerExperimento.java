@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
  */
 public class ControllerExperimento {
         
-    private static final String NOME_PATTERN = "[A-Z]([a-z]|[A-Z]|[0-9]|[\\s])*";
-    private static final String DESCRICAO_PATTERN = "[A-Z]([a-z]|[A-Z]|[0-9]|[\\s])*";
+    private static final String NOME_PATTERN = "([a-z]|[A-Z]|[0-9])([a-z]|[A-Z]|[0-9]|[\\s])*";
+    private static final String DESCRICAO_PATTERN = "([a-z]|[A-Z]|[0-9])([a-z]|[A-Z]|[0-9]|[\\s])*";
     private static final Pattern patternNome = Pattern.compile(NOME_PATTERN);
     private static final Pattern patternDescricao = Pattern.compile(DESCRICAO_PATTERN);
     
