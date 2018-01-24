@@ -30,7 +30,7 @@ public class Experimento implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "experimentoID", unique = true, nullable = false)
-    private Integer id;
+    private Integer id = 0;
 
     @Column(name = "nome", nullable = false)
     private String nome;
