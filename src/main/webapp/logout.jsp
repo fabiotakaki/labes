@@ -44,9 +44,9 @@
                     </form>
                 </div>
             </div>
-            <hr>
-            <%@include file="base/footer.jsp" %>
         </div>
+        <hr>
+        <%@include file="base/footer.jsp" %>
         <%@include file="base/scripts.jsp" %>
     </body>
 </html>

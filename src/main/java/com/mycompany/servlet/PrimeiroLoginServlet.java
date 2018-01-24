@@ -9,12 +9,9 @@ import com.mycompany.controller.ControllerUsuario;
 import com.mycompany.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +19,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author sidious
+ * @author ejcomp
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
+@WebServlet(name = "PrimeiroLoginServlet", urlPatterns = {"/PrimeiroLoginServlet"})
+public class PrimeiroLoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,44 +35,31 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
-        
-          
-            // Cria uma sessão de usuário
-            HttpSession session = request.getSession();
-=======
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
->>>>>>> 97c9488edf35c1edc124b1cc40092186ea014613
-            Usuario user = login(request, response);
-            //Usuario user = null;  (mock)
-            if (user != null) {
-            
-                session.setAttribute("user", user.getNomeUsuario());
-                session.setAttribute("userObj", user);
-                LOGGER.log(Level.WARNING, session.getAttribute("userObj").toString());
-                session.setMaxInactiveInterval(30 * 60); // define o tempo de inatividade
+            if(!request.getParameter("email").equals("") && !request.getParameter("nome").equals("")){
+                Usuario usuario = new Usuario();
+               
                 
-                // cria um cookie para o usuário
-                Cookie userName = new Cookie("user", user.getNomeUsuario());
-                response.addCookie(userName);
+                HttpSession session = request.getSession();
+               
+                
+                usuario = ControllerUsuario.buscaUsuario((int) session.getAttribute("id"));
+                
+                usuario.setNomeUsuario(request.getParameter("nome"));
+                //usuario.setEmail(request.getParameter("email"));
+                
+                usuario.saveOnDatabase();
+                
                 String encodeURL = response.encodeRedirectURL("home.jsp");
                 response.sendRedirect(encodeURL);
-            } else {
-<<<<<<< HEAD
-                session.setAttribute("loginDanger", "E-mail ou senha incorretos!");
-                String encodeURL = response.encodeRedirectURL("login.jsp");
-                response.sendRedirect(encodeURL);
-            	
             }
-            
-=======
+            else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("login.jsp");
-                out.println("<h2>Email ou senha inválidos!</h2>");
-                rd.include(request, response);
+            	out.println("<h2>Insira seu e-mail e  nome!</h2>");
+            	rd.include(request, response);
             }
         }
->>>>>>> 97c9488edf35c1edc124b1cc40092186ea014613
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -116,23 +98,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet Responsavel pelo login";
+        return "Short description";
     }// </editor-fold>
-
-    public Usuario login(HttpServletRequest request, HttpServletResponse response) {
-        Usuario user = null;
-        try {
-            String email, senha;
-            email = request.getParameter("email");
-            senha = request.getParameter("senha");
-
-            user = ControllerUsuario.login(email, senha);
-            //LOGGER.log(Level.INFO, String.valueOf(isLogged));
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
-            throw e;
-        }
-        return user;
-    }
 
 }

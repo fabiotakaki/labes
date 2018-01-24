@@ -42,7 +42,7 @@ public class LogoutServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie c : cookies) {
                 if (("JSESSIONID").equals(c.getName())) {
-                    LOGGER.log(Level.INFO, "JSESSIONID = {0}", c.getValue());
+                    LOGGER.log(Level.INFO, "Logging out user with JSESSIONID = {0}", c.getValue());
                     break;
                 }
                 // expira o cookie da sessão
@@ -51,7 +51,7 @@ public class LogoutServlet extends HttpServlet {
             }
         }
         HttpSession session = request.getSession(false);
-        LOGGER.log(Level.INFO, "USER = {0}", session.getAttribute("user"));
+        //LOGGER.log(Level.INFO, "USER = {0}", session.getAttribute("user"));
         // SonarQube says its allways true: https://github.com/SonarSource/sonar-csharp/issues/588
         // if(null != session)
         session.invalidate();

@@ -8,6 +8,7 @@ package com.mycompany.servlet;
 import com.mycompany.controller.ControllerExperimento;
 import com.mycompany.controller.ControllerUsuario;
 import com.mycompany.model.Experimento;
+import com.mycompany.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -95,8 +96,10 @@ public class ListarExperimentos extends HttpServlet {
         //LOGGER.log(Level.INFO, "Entrou aqui");
         String userName = (String) session.getAttribute("user");
         //LOGGER.log(Level.INFO, userName);
-        Integer userId = ControllerUsuario.buscaUsuarioEmail(userName).getId();
-        List<Experimento> listaExperimentos = ControllerExperimento.listarExperimentos(userId);
+        //Integer userId = ControllerUsuario.buscaUsuarioEmail(userName).getId();
+        Usuario user = (Usuario) session.getAttribute("userObj");
+        System.out.println(user.getNomeUsuario());
+        List<Experimento> listaExperimentos = ControllerExperimento.listarExperimentos(user.getId());
         return listaExperimentos;
     }
 }
