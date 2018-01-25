@@ -82,5 +82,27 @@ public class ExperimentoPersistence {
             return null;
         return (Experimento) queryResult.get(0);
     }
+    
+    public static boolean update(Experimento experimento) {
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        boolean commited = false;
+        Transaction t = null;
+        try {
+            t = session.beginTransaction();
+            session.update(experimento);
+            t.commit();
+            commited = true;
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "ERRO: [{0}]", e.getMessage());
+            if (t != null && !t.wasCommitted()) {
+                t.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+        return commited;
+    }
 
 }

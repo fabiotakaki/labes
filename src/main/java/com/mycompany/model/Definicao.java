@@ -50,10 +50,10 @@ public class Definicao implements Serializable {
     private String contexto;
 
     @Column(name = "editavel")
-    private boolean editavel;
+    private Boolean editavel;
 
     @Column(name = "concluido")
-    private boolean concluido;
+    private Boolean concluido;
 
     public Integer getIdDef() {
         return idDef;

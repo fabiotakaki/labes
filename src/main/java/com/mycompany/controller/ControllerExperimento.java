@@ -84,10 +84,21 @@ public class ControllerExperimento {
                 || !matcherFocoQualidade.matches() || !matcherContexto.matches()) {
             return false;
         }
+        boolean ret;
+        if (experimento.getDefinicao() == null) {
+            Definicao novaDefinicao = new Definicao(experimento, objEstudo, objetivo,
+                    perspectiva, focoQualidade, contexto, editavel, false);
+            experimento.setDefinicao(novaDefinicao);
+            ret = novaDefinicao.saveOnDatabase();
 
-        Definicao novaDefinicao = new Definicao(experimento, objEstudo, objetivo,
-                perspectiva, focoQualidade, contexto, editavel, editavel);
-        return novaDefinicao.saveOnDatabase();
+        } else {
+            experimento.updateDef(objEstudo, objetivo,
+                    perspectiva, focoQualidade, contexto, editavel, false);
+            ret = experimento.getDefinicao().saveOnDatabase();
+        }
+
+        experimento.updateDatabase();
+        return ret;
     }
 
     public static List<Experimento> listarExperimentos(Integer idUsuario) {
