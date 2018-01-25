@@ -5,6 +5,7 @@
  */
 package com.mycompany.servlet;
 
+import com.mycompany.controller.ControllerDefinicao;
 import com.mycompany.controller.ControllerExperimento;
 import com.mycompany.model.Experimento;
 import java.io.IOException;
@@ -47,6 +48,9 @@ public class DefinirExperimento extends HttpServlet {
             } else {
                 System.out.println("false");
             }
+            String EncodeURL;
+            EncodeURL = response.encodeURL("experimentodetalhes.jsp?experimentoId="+experimento.getId());
+            response.sendRedirect(EncodeURL);
         }
     }
 
@@ -104,7 +108,7 @@ public class DefinirExperimento extends HttpServlet {
                 "REQUEST:\n[objEstudo]: {0}\n[objetivo]: {1}\n[perspectiva]: {2}\n[focoQualidade]: {3}\n[contexto]: {4}\n[editavel]: {5}\n[concluido]: {6}",
                 new Object[]{objEstudo, objetivo, perspectiva, focoQualidade, contexto, editavel, concluido});
         
-        return ControllerExperimento.createDefinicao(experimento, objEstudo, objetivo, perspectiva, focoQualidade, contexto, editavel);
+        return ControllerDefinicao.createDefinicao(experimento, objEstudo, objetivo, perspectiva, focoQualidade, contexto, editavel);
     }
 
 }
