@@ -59,8 +59,13 @@
                         </div>
                         <div class="panel-body">
                             <c:choose>
-                                <c:when test="${empty experimento.definicao}">
-                                    <p><b>Objetivo: </b>${experimento.definicao.objEstudo}</p>
+                                <c:when test="${!empty experimento.definicao}">
+                                    <p><b>Objeto de Estudo: </b>${experimento.definicao.objEstudo}</p>
+                                    <p><b>Objetivo: </b>${experimento.definicao.objetivo}</p>
+                                    <p><b>Perpectiva: </b>${experimento.definicao.perspectiva}</p>
+                                    <p><b>Foco de Qualidade: </b>${experimento.definicao.focoQualidade}</p>
+                                    <p><b>Contexto: </b>${experimento.definicao.contexto}</p>
+
                                 </c:when>
                                 <c:otherwise>
                                     <p>O Experimento ainda não passou por uma definição</p>
