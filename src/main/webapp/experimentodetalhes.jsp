@@ -23,7 +23,7 @@
             } else {
                 user = (String) session.getAttribute("user");
                 experimento = (Experimento) session.getAttribute("experimento");       
-            }
+            
             String userName = null;
             String sessionID = null;
             Cookie[] cookies = request.getCookies();
@@ -42,6 +42,7 @@
         %>
         <jsp:include page="/DetalharExperimento" />
         <%@include file="base/navbarlogged.jsp" %>
+        <% } %>
         <div class="container">
             <div class="panel panel-default">
                 <div class="panel-heading">

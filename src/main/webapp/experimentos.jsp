@@ -22,7 +22,7 @@
                 response.sendRedirect("login.jsp");
             } else {
                 user = (String) session.getAttribute("user");
-            }
+            
                 String userName = null;
                 String sessionID = null;
                 Cookie[] cookies = request.getCookies();
@@ -41,6 +41,7 @@
         %>
         <jsp:include page="/ListarExperimentos" />
         <%@include file="base/navbarlogged.jsp" %>
+        <% }%>
         <div class="container">
             <div class="row">
                 <form class="navbar-form" role="search" method="get"
