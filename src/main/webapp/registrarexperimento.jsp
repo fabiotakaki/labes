@@ -39,8 +39,8 @@
         <%@include file="base/navbarlogged.jsp" %>
         <% } %>
         <%String divMensagem = "";%>
-            <%  if(session.getAttribute("ExperimentoSucess") != null){
-            divMensagem = "<div class=\" alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Experimento cadastrado com sucesso!</strong></div>";
+            <%  if(session.getAttribute("ExperimentoSuccess") != null){
+            divMensagem = "<div class=\" alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Experimento cadastrado com sucesso!</strong></div>";
             session.removeAttribute("ExperimentoSucess");
         }
             if(session.getAttribute("ExperimentoDanger") != null){

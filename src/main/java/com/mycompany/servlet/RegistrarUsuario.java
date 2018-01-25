@@ -24,7 +24,7 @@ public class RegistrarUsuario extends HttpServlet {
            //String htmlResponse = "<html>";
             HttpSession session = request.getSession();
             if (createUsuario(request, response)) {
-                session.setAttribute("UsuarioSucess", "Usuario Cadastrado com Sucesso");
+                session.setAttribute("UsuarioSuccess", "Usuario Cadastrado com Sucesso");
                 
             } else {
                 //htmlResponse += "<h2>Erro ao cadastrar o usuário, verifique o log para mais detalhes!</h2>";
