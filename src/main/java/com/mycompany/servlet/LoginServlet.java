@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
         
           
             // Cria uma sessão de usuário
-            HttpSession session = request.getSession();
+            HttpSession session = request.getSession(false);
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
