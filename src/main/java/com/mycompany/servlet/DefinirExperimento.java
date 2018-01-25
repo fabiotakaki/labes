@@ -103,6 +103,7 @@ public class DefinirExperimento extends HttpServlet {
         LOGGER.log(Level.INFO,
                 "REQUEST:\n[objEstudo]: {0}\n[objetivo]: {1}\n[perspectiva]: {2}\n[focoQualidade]: {3}\n[contexto]: {4}\n[editavel]: {5}\n[concluido]: {6}",
                 new Object[]{objEstudo, objetivo, perspectiva, focoQualidade, contexto, editavel, concluido});
+        
         return ControllerExperimento.createDefinicao(experimento, objEstudo, objetivo, perspectiva, focoQualidade, contexto, editavel);
     }
 

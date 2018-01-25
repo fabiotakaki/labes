@@ -30,7 +30,7 @@ public class DefinicaoPersistence {
         Transaction t = null;
         try {
             t = session.beginTransaction();
-            session.save(definicao);
+            session.update(definicao);
             t.commit();
             commited = true;
         } catch (Exception e) {

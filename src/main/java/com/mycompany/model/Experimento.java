@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -122,7 +123,9 @@ public class Experimento implements Serializable {
     }
 
     public void setDefinicao(Definicao definicao) {
+
         this.definicao = definicao;
+
     }
 
     public Integer getId() {
@@ -140,9 +143,27 @@ public class Experimento implements Serializable {
             return null;
         }
     }
-    
-    public static Experimento buscaExperimento(Integer idExperimento){
+
+    public Experimento updateDatabase() {
+        if (ExperimentoPersistence.update(this)) {
+            return this;
+        } else {
+            return null;
+        }
+    }
+
+    public static Experimento buscaExperimento(Integer idExperimento) {
         return ExperimentoPersistence.getExperimento(idExperimento);
+    }
+
+    public void updateDef(String objEstudo, String objetivo, String perspectiva, String focoQualidade, String contexto, boolean editavel, boolean concluido) {
+            this.definicao.setConcluido(concluido);
+            this.definicao.setEditavel(editavel);
+            this.definicao.setFocoQualidade(focoQualidade);
+            this.definicao.setObjEstudo(objEstudo);
+            this.definicao.setObjetivo(objetivo);
+            this.definicao.setPerspectiva(perspectiva);
+            this.definicao.setContexto(contexto);
     }
 
 }
