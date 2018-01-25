@@ -34,6 +34,7 @@ import javax.servlet.http.HttpSession;
 public class RegistrarExperimento extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(RegistrarExperimento.class.getName());
+    HttpSession session = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +50,7 @@ public class RegistrarExperimento extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Experimento exp = createExperimento(request, response);
-            HttpSession session = request.getSession();
+            HttpSession session = request.getSession(false);
             if (exp != null) {
                 session.setAttribute("ExperimentoSuccess", "Experimento cadastrado com sucesso!");
                 String encodeURL = response.encodeRedirectURL("experimentos.jsp");
@@ -112,11 +113,8 @@ public class RegistrarExperimento extends HttpServlet {
             String descricao;
             boolean isReplicavel;
             Calendar data_inicio;
-            HttpSession session = request.getSession(false);
-            //LOGGER.log(Level.INFO, "Entrou aqui");
-            String userName = (String) session.getAttribute("user");
-            //LOGGER.log(Level.INFO, userName);
-            Usuario usuario = ControllerUsuario.buscaUsuarioEmail(userName);
+            session = request.getSession(false);
+            Usuario user = (Usuario) session.getAttribute("userObj");
             nome = request.getParameter("nome");
             descricao = request.getParameter("descricao");
             isReplicavel = request.getParameter("replicacao").equals("0");
@@ -125,7 +123,7 @@ public class RegistrarExperimento extends HttpServlet {
             Date date = sdf.parse(request.getParameter("data_inicial"));
             data_inicio = Calendar.getInstance();
             data_inicio.setTime(date);
-            exp = ControllerExperimento.createExperimento(nome, descricao, data_inicio, isReplicavel, usuario);
+            exp = ControllerExperimento.createExperimento(nome, descricao, data_inicio, isReplicavel, user);
         } catch (ParseException ex) {
             LOGGER.log(Level.SEVERE, "ERRO: [{0}]", ex.getMessage());
         }
