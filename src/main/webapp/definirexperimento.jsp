@@ -22,7 +22,7 @@
             } else {
                 user = (String) session.getAttribute("user");
                 experimento = (Experimento) session.getAttribute("experimento");
-            }
+            
             String userName = null;
             String sessionID = null;
             Cookie[] cookies = request.getCookies();
@@ -41,6 +41,7 @@
         %>
         <jsp:include page="/DefinirExperimento" />
         <%@include file="base/navbarlogged.jsp" %>
+        <% } %>
         <div class="container">
             <form action="DefinirExperimento" method="POST" role="form" class="col-md-12">
                 <div class="form-group">
