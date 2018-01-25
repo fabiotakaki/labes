@@ -13,32 +13,7 @@
         <title>QPA | Registro</title>
     </head>
     <body>
-        <%
-            // Only allow autenticated users
-            String user = null;
-            if (session.getAttribute("user") == null) {
-                response.sendRedirect("login.jsp");
-            } else {
-                user = (String) session.getAttribute("user");
-            
-            String userName = null;
-            String sessionID = null;
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie c : cookies) {
-                    if (c.getName().equals("user")) {
-                        userName = c.getValue();
-                    }
-                    if (c.getName().equals("JSESSIONID")) {
-                        sessionID = c.getValue();
-                    }
-                }
-            } else {
-                sessionID = session.getId();
-            }
-        %>
         <%@include file="base/navbar.jsp" %>
-        <% } %>
         <%String divMensagem = "";%>
             <%  if(session.getAttribute("UsuarioSuccess") != null){
             divMensagem = "<div class=\" alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Usuário cadastrado com sucesso!</strong></div>";
